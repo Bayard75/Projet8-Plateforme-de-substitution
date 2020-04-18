@@ -1,0 +1,53 @@
+{% load static %}
+
+    {% include 'sub_website/acceuil/nav_bar.html' %}
+
+{% if user.profile.favorites.all%}
+    <header class="masthead text-center text-white d-flex" style="background-image: url(&quot;{% static 'sub_website/acceuil/assets/img/kawin-harasai-k60JspcBwKE-unsplash.jpg'%}&quot;);height:450px;">
+        <div class="container my-auto" style="backdrop-filter: blur(0.5);">
+            <div class="row">
+            <div class="col">
+
+                    <h3 class="text-uppercase"><strong style="font-size: 43px;background-color: rgba(11,10,10,0.31);">Voici vos favoris enregistrés</strong></h3>
+                </div>
+            </div>
+        </div>
+    </header>
+        <section id="product_result" style="background-color: #E8A75D;position: relative;">
+            <div class="container">
+                <!-- Start: Animation Cards -->
+                <div class="row d-flex flex-row align-items-center space-rows">
+                {% for favorite in user.profile.favorites.all%}
+                    <div class="col" id="{{favorite.name}}">
+                        <a href="product/{{favorite.codebar}}" style="text-decoration: none;">
+                            <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
+                                <div class="card-header" style="background-image: url(&quot;{{favorite.image}}&quot;); height:400px; background-position:center; background-repeat:no-repeat;"></div>
+                                <div class="card-body">
+                                    <h6>{{favorite.name}}</h6>
+                                </div>
+                            </div>
+                        </a>
+                        <button class="btn btn-primary" onclick ="remove_fav(this,'{{favorite.codebar}}','{{user.email}}');" style="margin-left:50px; margin-top:10px">Retirez des favoris </button>
+                    </div>
+                {% endfor %}
+                </div>
+                <!-- End: Animation Cards -->
+            </div>
+        </section>
+            {% else %}
+    
+            <header class="masthead text-center text-white d-flex" style="background-image: url(&quot;{% static 'sub_website/acceuil/assets/img/kawin-harasai-k60JspcBwKE-unsplash.jpg'%}&quot;);">
+                <div class="container my-auto" style="backdrop-filter: blur(0.5);">
+                    <div class="row">
+                    <div class="col">
+
+                            <h3 class="text-uppercase"><strong style="font-size: 43px;background-color: rgba(11,10,10,0.31);">Vous n'avez aucun favoris enregistré</strong></h3>
+                        </div>
+                    </div>
+                </div>
+            </header>
+            {% endif %}
+
+
+    <!-- Start: Footer Basic -->
+{% include 'sub_website/acceuil/footer.html' %}

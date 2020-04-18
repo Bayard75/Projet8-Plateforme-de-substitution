@@ -1,0 +1,63 @@
+{% load static %}
+
+    {% include 'sub_website/acceuil/nav_bar.html' %}
+    
+    <header class="masthead text-center text-white d-flex" style="height:400px;background-color: #345a61;">
+        <div class="container border rounded border-dark shadow-lg my-auto" style="backdrop-filter: blur(0.5);">
+            <div class="row text-center" data-aos="zoom-in" data-aos-duration="250" style="margin: 0;margin-top: 0;margin-right: 0;margin-bottom: 8px;background-image: url(&quot;{{product.image}}&quot;);background-repeat: no-repeat;background-position: center;">
+                <div class="col" >
+                    <h1 style="color: rgb(0,0,0);height: 400px;" id="product_name">{{product.name}}</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="text-center" id="informations_product" style="background-color: #E8A75D;">
+        <div class="container" style="padding-right: 1px;padding-top: 63px;">
+            <div class="row" style="padding-bottom: 117px;">
+                <div class="col">
+                <div class="row">
+                    <h1 style="font-size: 37px;">Nutriscore</h1></div>
+                   <div class="row"> <img class="border rounded border-dark shadow-lg card cards-shadown cards-hover" id ="product_grade" data-aos="zoom-in" data-aos-duration="250" src="https://static.openfoodfacts.org/images/misc/nutriscore-{{product.grade}}.svg"></div>
+                    </div>
+                <div class="col">
+              <div class="row">
+                    <h1 style="font-size: 37px;">Repères nutritionnels pour 100g</h1></div>
+                   <div class="row">
+                        <a href="{{product.reperes}}" id="product_reperes" target="_blank"> 
+                        <img class="border rounded border-dark shadow-lg card cards-shadown cards-hover" data-aos="zoom-in" data-aos-duration="250" src="{{product.reperes}}">
+                    </div>
+                    </div>            </div>
+            <div class="row">
+                <div class="col">
+                    <a href="{{product.url}}" id ="product_url" target="_blank">
+                        <h1 class="border rounded border-dark shadow-lg" data-bs-hover-animate="pulse">Voir la fiche d'OpenFoodFacts</h1>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start: Footer Basic -->
+    <div class="footer-basic">
+        <footer>
+            <!-- Start: Links -->
+            <ul class="list-inline text-center d-flex justify-content-around">
+                <li class="list-inline-item"><a href="#" style="font-size: 24px;font-family: 'Open Sans';">MENTIONS LEGALES</a></li>
+                <li class="list-inline-item"></li>
+                <li class="list-inline-item"></li>
+                <li class="list-inline-item"></li>
+                <li class="list-inline-item"><a href="#" style="font-size: 24px;font-family: 'Open Sans';">CONTACT</a></li>
+            </ul>
+            <!-- End: Links -->
+        </footer>
+    </div>
+    <!-- End: Footer Basic -->
+    <script src="{% static 'sub_website/acceuil/assets/js/jquery.min.js'%}"></script>
+    <script src="{% static 'sub_website/acceuil/assets/bootstrap/js/bootstrap.min.js'%}"></script>
+    <script src="{% static 'sub_website/acceuil/assets/js/bs-init.js'%}"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.1.1/aos.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-easing/1.4.1/jquery.easing.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/magnific-popup.js/1.1.0/jquery.magnific-popup.min.js"></script>
+    <script src="{% static 'sub_website/acceuil/assets/js/creative.js'%}"></script>
+</body>
+
+</html>

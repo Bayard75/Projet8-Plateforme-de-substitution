@@ -1,0 +1,54 @@
+{% load static %}
+{% load crispy_forms_tags%}
+
+    {% include 'sub_website/acceuil/nav_bar.html' %}
+
+
+    <header class="masthead text-center text-white d-flex" style="background-image: url(&quot;{% static 'sub_website/acceuil/assets/img/kawin-harasai-k60JspcBwKE-unsplash.jpg'%}&quot;);/*backdrop-filter: blur(0.5);*/height: 650px;">
+        <div class="container my-auto" style="backdrop-filter: blur(0.5);">
+            <div class="row">
+                <div class="col-lg-10 col-xl-12 mx-auto" style="background-color: rgba(1,1,1,0.42);margin-top: 126px;">
+                    <h1 class="text-uppercase"><strong>Du gras oui ! Mais de qualité !</strong></h1>
+                    <hr>
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Start: Registration Form with Photo -->
+    <div class="register-photo" style="background-color: #E8A75D;padding-top: 112px;padding-bottom: 110px;">
+        <!-- Start: Form Container -->
+        <div data-aos="zoom-in" data-aos-duration="300" class="form-container">
+                <h2 class="text-center"><strong>Vous êtes deconnecté</strong></h2>
+                <div class="row" style="margin-top:20px;">
+                <div class="col">
+                <a href="{% url 'login' %}"
+                    <button class="btn btn-primary btn-block" style="background-color: #345A61;">
+                    Se reconnecter
+                </button>
+                </a>
+                </div></div>
+        </div>
+        <!-- End: Form Container -->
+    </div>
+    <!-- End: Registration Form with Photo -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading">Contactez-nous !</h2>
+                    <hr class="my-4">
+                    <p class="mb-5">Des idées d'améliorations ? Des questions ? N'hesitez pas à nous contacter !</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 ml-auto text-center"><i class="fa fa-phone fa-3x mb-3 sr-contact" data-aos="zoom-in" data-aos-duration="300" data-aos-once="true"></i>
+                    <p>123-456-6789</p>
+                </div>
+                <div class="col-lg-4 mr-auto text-center"><i class="fa fa-envelope-o fa-3x mb-3 sr-contact" data-aos="zoom-in" data-aos-duration="300" data-aos-delay="300" data-aos-once="true"></i>
+                    <p><a href="mailto:your-email@your-domain.com">email@example.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start: Footer Basic -->
+{% include 'sub_website/acceuil/footer.html' %}

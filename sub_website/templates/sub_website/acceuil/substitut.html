@@ -1,0 +1,70 @@
+{% load static %}
+
+    {% include 'sub_website/acceuil/nav_bar.html' %}
+
+    <header class="masthead text-center text-white d-flex" style="/*backdrop-filter: blur(0.5);*/background-color: #345a61;height: 604px;">
+        <div class="container border rounded border-dark shadow-lg my-auto" style="backdrop-filter: blur(0.5);">
+            <div class="row text-center bounce animated" style="margin: 0;margin-top: 0;margin-right: 0;margin-bottom: 8px;background-image: url(&quot;{{chosen_aliment.image}}&quot;);background-repeat: no-repeat;background-position: center;">
+                <div class="col" id="product_to_sub">
+                    <h1 style="color: rgb(0,0,0);height: 400px;">{{chosen_aliment.name}}</h1>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section class="text-center" id="substituts" style="background-color: #E8A75D;">
+        <div class="container" style="margin-top: -144px;margin-bottom: -34px;">
+            <div class="row" style="margin-top: 22px;">
+                <div class="col" id="message_status">
+                {% if substituts %}
+                    <h2><strong>Vous pouvez substituer cet aliment par le(s) suivant(s) :</strong></h2>
+                </div>
+            </div>
+            <!-- Start: Animation Cards -->
+            <div class="row d-flex flex-row align-items-center flex-wrap space-rows">
+
+                <!-- Database search results -->
+                 {% for substitut in substituts %}
+                <div class="col substitut" id="{{substitut.name}}">
+                    <a href="/product/{{substitut.codebar}}" style="text-decoration: none;">
+                        <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950"><span class="badge badge-primary border rounded-circle shadow-lg" style="font-size: 37px; position : absolute; top : -30px; right: -15px ; text-transform: uppercase;" >{{substitut.grade}}</span>
+                            <div class="card-header" style="background-image: url(&quot;{{substitut.image}}&quot;); height:400px; background-position:center; background-repeat:no-repeat;"></div>
+                            <div class="card-body">
+                                <h6>{{substitut.name}}</h6>
+                            </div>
+                    </a>
+                            {% if user.is_authenticated %}
+                            <div class="custom-control custom-checkbox">
+                            {% csrf_token %}
+                                {% if substitut in  user.profile.favorites.all %}
+                                <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" checked onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label></div>
+                                {%else%}
+                                <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label></div>
+                                {% endif %}
+                            {% endif %}
+                        </div>
+                </div>
+                {% endfor %}
+            </div>
+            <!-- End: Animation Cards -->
+            {% if paginate %}
+            <div class="clearfix"></div>
+            <div class="btn-toolbar" style="margin-left: 276px;">
+                {% if substituts.has_previous %}
+                        <a class="btn btn-primary"  href="?page=1" style="background-color: #345A61;margin-right: 21px;">Première page</a>
+                        <a class="btn btn-primary"  href="?page={{ substituts.previous_page_number}}" style="background-color: #345A61;margin-right: 21px;">Précedent</a>
+                {% endif %}
+                {% if substituts.has_next %}
+                        <a class="btn btn-primary"  href="?page={{ substituts.next_page_number}}" style="background-color: #345A61;margin-right: 21px;">Suivant</a>
+                        <a class="btn btn-primary"  href="?page={{ substituts.paginator.num_pages}}" style="background-color: #345A61;margin-right: 21px;">Dernière page</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        
+        {%else%}
+            <h2><strong>Ce produit est déjà le meilleur de sa catégorie</strong></h2>
+            </div>
+        {%endif%}
+        </div>
+    </section>
+    <!-- Start: Footer Basic -->
+{% include 'sub_website/acceuil/footer.html' %}

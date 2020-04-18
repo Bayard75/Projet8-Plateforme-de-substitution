@@ -1,0 +1,25 @@
+{% load static %}
+{% load crispy_forms_tags%}
+    
+    {% include 'sub_website/acceuil/nav_bar.html' %}
+
+    <!-- Start: 2 Rows 1+1 Columns -->
+    <div style="padding-top: 152px;background-color: #E8A75D;">
+        <div class="container">
+            <div class="row" style="background-image: url(&quot;{% static 'sub_website/acceuil/assets/img/ratatouille-11.jpg' %} &quot;);background-repeat: no-repeat;background-size: cover;height: 400px;">
+                <div class="col">
+                    <h1 id ="username" class="text-center border rounded border-dark shadow-lg" style="color: rgb(235,242,249);background-color: rgba(17,12,12,0.33);margin-top: 117px;">{{user.username}}</h1>
+                </div>
+            </div>
+            <div class="row" style="padding-top: 103px; padding-bottom: 100px;">
+                <div class="col-md-12" style="padding-top: 49px;">
+                    <h1 class="text-center border rounded border-secondary shadow-lg" id="user_email">{{user.email}}</h1>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- End: 2 Rows 1+1 Columns -->
+
+    <!-- Start: Footer Basic -->
+
+{% include 'sub_website/acceuil/footer.html' %}

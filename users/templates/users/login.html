@@ -1,0 +1,73 @@
+{% load static %}
+{% load crispy_forms_tags%}
+    
+    {% include 'sub_website/acceuil/nav_bar.html' %}
+
+
+    <header class="masthead text-center text-white d-flex" style="background-image: url(&quot;{% static 'sub_website/acceuil/assets/img/kawin-harasai-k60JspcBwKE-unsplash.jpg'%}&quot;);/*backdrop-filter: blur(0.5);*/height: 650px;">
+        <div class="container my-auto" style="backdrop-filter: blur(0.5);">
+            <div class="row">
+                <div class="col-lg-10 col-xl-12 mx-auto" style="background-color: rgba(1,1,1,0.42);margin-top: 126px;">
+                    <h1 class="text-uppercase"><strong>Du gras oui ! Mais de qualité !</strong></h1>
+                    <hr>
+                {% if messages %}
+                        {% for message in messages  %}
+                            <div class="alert alert-{{ message.tags }}" style="margin-bottom: 30px;">
+                                {{ message }}
+                            </div>
+                        {% endfor %}
+                {% endif %}
+                </div>
+            </div>
+        </div>
+    </header>
+    <!-- Start: Registration Form with Photo -->
+    <div class="register-photo" style="background-color: #E8A75D;padding-top: 112px;padding-bottom: 110px;">
+        <!-- Start: Form Container -->
+        <div data-aos="zoom-in" data-aos-duration="300" class="form-container">
+            <!-- Start: Image -->
+            <div class="image-holder" style="background: url(&quot;{% static 'sub_website/acceuil/assets/img/colette-6.jpg'%}&quot;)"></div>
+            <!-- End: Image -->
+<form class="border rounded shadow-lg" method="POST">
+{% csrf_token %}
+                <h2 class="text-center"><strong>Connectez-vous à votre compte</strong></h2>
+                <div class="form-group">
+                        
+
+<div id="div_id_username" class="form-group"> <label for="id_username" class=" requiredField">
+                Nom utilisateur<span class="asteriskField">*</span> </label> <div class=""> <input type="text" name="username" class="textinput textInput form-control" required="" id="id_username"> </div> </div> <div id="div_id_password" class="form-group"> <label for="id_password" class=" requiredField">
+                Mot de passe<span class="asteriskField">*</span> </label> <div class=""> <input type="password" name="password" class="textinput textInput form-control" required="" id="id_password"> </div> </div>
+
+                         <button name="submit" class="btn btn-primary btn-block" type="submit" style="background-color: #345A61;">
+                            Se connecter
+                        </button>
+                </div>
+                <a class="already" href="/inscription/">
+                        Pas encore de compte ? Créez en un ici.
+                </a>
+            </form>
+        </div>
+        <!-- End: Form Container -->
+    </div>
+    <!-- End: Registration Form with Photo -->
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading">Contactez-nous !</h2>
+                    <hr class="my-4">
+                    <p class="mb-5">Des idées d'améliorations ? Des questions ? N'hesitez pas à nous contacter !</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 ml-auto text-center"><i class="fa fa-phone fa-3x mb-3 sr-contact" data-aos="zoom-in" data-aos-duration="300" data-aos-once="true"></i>
+                    <p>123-456-6789</p>
+                </div>
+                <div class="col-lg-4 mr-auto text-center"><i class="fa fa-envelope-o fa-3x mb-3 sr-contact" data-aos="zoom-in" data-aos-duration="300" data-aos-delay="300" data-aos-once="true"></i>
+                    <p><a href="mailto:your-email@your-domain.com">email@example.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start: Footer Basic -->
+{% include 'sub_website/acceuil/footer.html' %}

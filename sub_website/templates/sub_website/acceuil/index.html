@@ -1,0 +1,82 @@
+{% load static %}
+
+    
+    {% include 'sub_website/acceuil/nav_bar.html' %}
+
+
+<header class="masthead text-center text-white d-flex" style="background-image: url(&quot;{% static 'sub_website/acceuil/assets/img/kawin-harasai-k60JspcBwKE-unsplash.jpg'%}&quot;);/*backdrop-filter: blur(0.5);*/">
+        <div class="container my-auto" style="backdrop-filter: blur(0.5);">
+            <div class="row">
+                <div class="col-lg-10 mx-auto" style="background-color: rgba(1,1,1,0.11);">
+                    <h1 class="text-uppercase"><strong>Du Gras Oui ! Mais de qualité !</strong></h1>
+                    <hr>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h2 class="text-faded mb-5" style="background-color: rgba(0,0,0,0.18);">Trouvez un produit de substitution pour ceux que vous utilisez tous les jours !</h2>
+                </div>
+            </div>
+            <div class="row" style="margin-top: 76px;">
+                <div class="col">
+                    <form action="/submit" method="POST">
+                        <div class="form-row">
+                            <div class="col-12 col-md-9 mb-2 mb-md-0">
+                            {% csrf_token %}
+                            <input class="form-control form-control form-control-lg" id="input_index" type="text" name="value" placeholder="un aliment, une marque.." >
+                            </div>
+                            <div class="col-12 col-md-3"><button class="btn btn-primary btn-block btn-lg" data-bs-hover-animate="pulse" type="submit" name ="submit" style="background-color: #E8A75D;">Substituer</button></div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </header>
+    <section id="histoire" style="background-color: #E8A75D;">
+        <div class="container">
+            <div class="row">
+                <div class="col offset-lg-8 mx-auto text-center">
+                    <h2 class="text-white section-heading">Colette et Remy&nbsp;</h2>
+                    <hr class="light my-4">
+                    <p class="text-faded mb-4" style="color: #000000;font-size: 17px;">&nbsp;Nous sommes une jeune startup fondée par Remy et Colette Tatou,<br>deux restaurateurs de renom. Notre restaurant, situé à Montmartre (Paris),<br>compte une cinquantaine de couverts et ne désemplit pas. Notre spécialité, la<br>ratatouille,
+                        nous attire une clientèle internationale charmée par les délices<br>de ce plat typique. <br><br>&nbsp;<br><br>Remy et Colette sont amoureux de la gastronomie française (on<br>ne peut les blâmer !). Travaillant quotidiennement avec
+                        les meilleurs produits<br>du terroir, ils affectionnent particulièrement la bonne chaire et aiment<br>partager leur passion. Il est donc normal que Remy ait sauté au plafond quand<br>Colette, un jour de déprime, sortit du placard
+                        un kilo de Nutella et l’attaqua<br>à la petite cuillère. Pourquoi ne pas opter pour une pâte à tartiner aux<br>noisettes, plus consistante et moins sucrée ? Pourquoi, oh pourquoi s’infliger<br>une telle souffrance ? Rémy était
+                        sidéré. La réponse de Colette fut simple :<br>elle n’avait pas trouvé de substitut assez convainquant. A vrai dire, elle<br>n’avait même pas cherché.<br><br>&nbsp;<br><br>Tous deux se souvinrent alors que nombre de leurs clients
+                        leur<br>avaient compté, entre deux verres, qu’il était difficile de trouver des<br>substituts aux cochonneries que nous mangions dès le petit déjeuner. Pourquoi<br>ne pas lancer une plateforme web en ce sens ? La voici !<br><br><br><br><br><br></p>
+                </div>
+            </div>
+        </div>
+        <div class="container" style="padding-right: 1px;padding-top: 63px;">
+            <div class="row text-center" style="padding-bottom: 117px;">
+                <div class="col"><img class="border rounded border-dark shadow-lg" src="{% static 'sub_website/acceuil/assets/img/colette.jpg' %}" width="400px"/>
+                    <h1>Colette</h1>
+                </div>
+                <div class="col"><img class="border rounded border-dark shadow-lg" src="{% static 'sub_website/acceuil/assets/img/remy.jpg' %}" width="400px"/>
+                    <h1 style="font-size: 37px;">Remy</h1>
+                </div>
+            </div>
+</div>
+    </section>
+    <section id="contact">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mx-auto text-center">
+                    <h2 class="section-heading">Contactez-nous !</h2>
+                    <hr class="my-4">
+                    <p class="mb-5">Des idées d'améliorations ? Des questions ? N'hesitez pas à nous contacter !</p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-4 ml-auto text-center"><i class="fa fa-phone fa-3x mb-3 sr-contact" data-aos="zoom-in" data-aos-duration="300" data-aos-once="true"></i>
+                    <p>123-456-6789</p>
+                </div>
+                <div class="col-lg-4 mr-auto text-center"><i class="fa fa-envelope-o fa-3x mb-3 sr-contact" data-aos="zoom-in" data-aos-duration="300" data-aos-delay="300" data-aos-once="true"></i>
+                    <p><a href="mailto:your-email@your-domain.com">email@example.com</a></p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- Start: Footer Basic -->
+
+{% include 'sub_website/acceuil/footer.html' %}
