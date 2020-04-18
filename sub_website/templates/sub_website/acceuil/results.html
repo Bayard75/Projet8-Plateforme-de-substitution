@@ -16,7 +16,7 @@
     <section id="product_result" style="background-color: #E8A75D;position: relative;">
         <div class="container align-items-center">
             <!-- Start: Animation Cards -->
-            <div class="row d-flex flex-row align-items-center space-rows">
+            <div class="row d-flex flex-row align-items-center space-rows" id="row_product">
 
                 {% for product in results_db%}
                     <div class="col" id="{{product.name}}">

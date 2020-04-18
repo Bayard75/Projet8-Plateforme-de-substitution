@@ -8,10 +8,17 @@
   flex: 0 0 33.33333%;
   /*position: relative;*/
 }
-
-#col_sub {
+@media screen and (max-width: 480px)
+{
+  #row_product{
+    flex-direction: column;
+  }
+  .row.d-flex.flex-row.align-items-center.space-rows
+  {
+    flex-direction: column;
+  }
 }
-
+}
 .badge.badge-primary {
   position: absolute;
   top: -13px;
