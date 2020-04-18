@@ -13,24 +13,20 @@
             </div>
         </div>
     </header>
-                <section id="product_result" style="background-color: #E8A75D;position: relative;">
-                    <div class="container text-center">
-                        <div class="row d-flex flex-row space-rows">
-                        {% for product in results_db  %}
-                            <div class="col">
-                            <a href="substitut/{{product.codebar}}" style="text-decoration: none;">
-                                <div class="card cards-shadown cards-hover">
-                                    <div class="card-header" style="height : 400px; background-image: url({{product.image}}); background-repeat:no-repeat; background-cover:cover; background-position:center"></div>
-                                    <div class="card-body">
-                                        <h6>{{product.name}}</h6>
-                                    </div>
-                                </div>
-                            </a>
-                            </div>
-{% endfor %}
-                        </div>
-                         {% if paginate %}
-            <div class="clearfix"></div>
+<section id="product_result" style="background-color: #E8A75D;position: relative;">
+    <div class="row space-rows">
+    {% for product in results_db  %}
+        <div class="col">
+            <div class="card cards-shadown cards-hover">
+                <div class="card-header" style="background-image:url({{product.image}}"></div>
+                <div class="card-body">
+                    <h1 class="cardbody-sub-text">{{product.name}}</h1>
+                </div>
+            </div>
+        </div>
+           {% endfor %}
+    </div>
+                             {% if paginate %}
             <div class="btn-toolbar" style="margin-left: 276px;">
                 {% if results_db.has_previous %}
                         <a class="btn btn-primary"  href="?page=1" style="background-color: #345A61;margin-right: 21px;">Première page</a>
@@ -42,8 +38,8 @@
                 {% endif %}
             </div>
             {% endif %}
-                    </div>
-                </section>
+</section>
+
 {% else %}
 
     <header class="masthead text-center text-white d-flex" style="background-image: url(&quot;{% static 'sub_website/acceuil/assets/img/kawin-harasai-k60JspcBwKE-unsplash.jpg'%}&quot;);">
