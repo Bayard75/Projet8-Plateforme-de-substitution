@@ -1,3 +1,3 @@
-web: python manage.py collectstatic --noinput; bin/gunicorn_django --workers=4 --bind=0.0.0.0:$PORT sub_project/settings.py 
+web: python manage.py collectstatic --no-input; gunicorn sub_project.wsgi --log-file - --log-level debug
 
 
