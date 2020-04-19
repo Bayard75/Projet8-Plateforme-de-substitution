@@ -45,8 +45,11 @@
   box-shadow: 2px 2px 30px #aaaaaa;
 }
 
-.row.space-rows {
-  margin: 40px;
+@media (min-width: 10px) and (max-width:700px) {
+  .row.space-rows {
+    margin: 40px;
+    flex-direction: column;
+  }
 }
 
 .col {

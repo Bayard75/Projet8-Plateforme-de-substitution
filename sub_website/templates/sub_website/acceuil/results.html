@@ -17,12 +17,14 @@
     <div class="row space-rows">
     {% for product in results_db  %}
         <div class="col">
+        <a href="substitut/{{product.codebar}}">
             <div class="card cards-shadown cards-hover">
-                <div class="card-header" style="background-image:url({{product.image}}"></div>
+                <div class="card-header" style="background-image:url({{product.image}}); background-repeat:no-repeat; background-position:center; background-size:contain;"></div>
                 <div class="card-body">
-                    <h1 class="cardbody-sub-text">{{product.name}}</h1>
+                    <p class="cardbody-sub-text">{{product.name}}<p>
                 </div>
             </div>
+        </a>
         </div>
            {% endfor %}
     </div>
