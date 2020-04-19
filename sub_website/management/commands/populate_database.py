@@ -15,7 +15,7 @@ class Command(BaseCommand):
         from the OpenfoodFacts API'''
 
         page = 1 # Starting at page 1
-        nb_aliments_to_display = 7000 
+        nb_aliments_to_display = 4000
         while Product.objects.count() < nb_aliments_to_display:
             
             search_url =f'https://fr.openfoodfacts.org/cgi/search.pl?search_terms=&search_simple=1&action=process&page={page}&json=True'
