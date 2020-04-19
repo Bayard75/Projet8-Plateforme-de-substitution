@@ -17,7 +17,7 @@
 <div class="container">
     <div class="row space-rows">
     {% for product in results_db  %}
-        <div class="col">
+        <div class="col" id="{{product.codebar}}">
         <a href="substitut/{{product.codebar}}">
             <div class="card cards-shadown cards-hover">
                 <div class="card-header" style="background-image:url({{product.image}}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>

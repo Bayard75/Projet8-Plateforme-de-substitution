@@ -22,7 +22,7 @@
             <!-- Start: Animation Cards -->
             <div class="row space-rows">
                 {% for substitut in substituts  %}
-                <div class="col">
+                <div class="col" id="{{substitut.codebar}}">
                         <a href="/product/{{substitut.codebar}}">
                             <div class="card cards-shadown cards-hover">
                                 <div class="card-header" style="background-image:url({{substitut.image}}); background-size:cover;background-position:center; background-repeat: no-repeat;">

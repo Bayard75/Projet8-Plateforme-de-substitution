@@ -2,7 +2,7 @@ import time
 import random
 
 from django.urls import reverse
-from django.contrib.staticfiles.testing import StaticLiveServerTestCase
+from django.contrib.staticfiles.testing import LiveServerTestCase
 
 from django.contrib.auth.models import User
 from selenium import webdriver
@@ -34,7 +34,7 @@ def create_product(codebar,name,grade):
     return test_product           
 
 # -------------------------------- Subwebsite APP functional tests ---------------------------- #
-class IndexPageSeleniumTest(StaticLiveServerTestCase):
+class IndexPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome(CHROMEDRIVER_PATH)
@@ -60,12 +60,13 @@ class IndexPageSeleniumTest(StaticLiveServerTestCase):
 
         # We check to see if all ouf our elements are indeed there        
         for product in product_to_search:
-            name_displayed = selenium.find_element_by_id(product)
-            self.assertEqual(name_displayed.get_attribute('id'), product.name)
+            column =selenium.find_element_by_id(product.codebar)
+            name_displayed = column.find_element_by_tag_name('p').text
+            self.assertEqual(name_displayed, product.name)
 
         # The user will click on one of the dispalyed product
         random_product = random.choice(product_to_search)
-        element = selenium.find_element_by_id(random_product)
+        element = selenium.find_element_by_id(random_product.codebar)
         # So we make sure that the link is the one expected
         random_product_a_tag = element.find_element_by_tag_name('a')
         self.assertEqual(random_product_a_tag.get_attribute('href'), f"{self.live_server_url}/substitut/{random_product.codebar}")
@@ -92,12 +93,13 @@ class IndexPageSeleniumTest(StaticLiveServerTestCase):
         time.sleep(2)
         # We check to see if all ouf our elements are indeed there        
         for product in product_to_search:
-            name_displayed = selenium.find_element_by_id(product)
-            self.assertEqual(name_displayed.get_attribute('id'), product.name)
+            column =selenium.find_element_by_id(product.codebar)
+            name_displayed = column.find_element_by_tag_name('p').text
+            self.assertEqual(name_displayed, product.name)
 
         # The user will click on one of the dispalyed product
         random_product = random.choice(product_to_search)
-        element = selenium.find_element_by_id(random_product)
+        element = selenium.find_element_by_id(random_product.codebar)
         # So we make sure that the link is the one expected
         random_product_a_tag = element.find_element_by_tag_name('a')
         self.assertEqual(random_product_a_tag.get_attribute('href'), f"{self.live_server_url}/substitut/{random_product.codebar}")
@@ -118,7 +120,7 @@ class IndexPageSeleniumTest(StaticLiveServerTestCase):
         no_results = selenium.find_element_by_id('no_results')
         self.assertEqual(no_results.find_element_by_tag_name('h3').text,"NOUS N'AVONS AUCUN PRODUIT CORRESPONDANT À VOTRE RECHERCHE.")
 
-class SubstitutPageSeleniumTest(StaticLiveServerTestCase):
+class SubstitutPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome(CHROMEDRIVER_PATH)
@@ -143,12 +145,12 @@ class SubstitutPageSeleniumTest(StaticLiveServerTestCase):
         substituts = last_cat.products.all().filter(grade__lte=product_to_sub.grade).order_by('grade').exclude(codebar=product_to_sub.codebar)
         #Let check that the substituts displayed are correct
         for sub in substituts:
-            sub_element = selenium.find_element_by_id(sub.name)
-            sub_element_a_tag = sub_element.find_element_by_tag_name('a')
+            sub_column = selenium.find_element_by_id(sub.codebar)
+            sub_element_a_tag = sub_column.find_element_by_tag_name('a')
             self.assertEqual(sub_element_a_tag.get_attribute('href'),f"{self.live_server_url}/product/{sub.codebar}")
-            sub_element_h6_tag = sub_element.find_element_by_tag_name('h6')
-            self.assertEqual(sub_element_h6_tag.text, sub.name)
-            sub_element_badge = sub_element.find_element_by_tag_name('span')
+            sub_element_p_tag = sub_column.find_element_by_tag_name('p')
+            self.assertEqual(sub_element_p_tag.text, sub.name)
+            sub_element_badge = sub_column.find_element_by_tag_name('span')
             self.assertEqual(sub_element_badge.text,sub.grade.upper())
     
     def test_page_substitut_alreay_best(self):
@@ -160,7 +162,7 @@ class SubstitutPageSeleniumTest(StaticLiveServerTestCase):
         message = selenium.find_element_by_id('message_status')
         message_h2_tag = message.find_element_by_tag_name('h2')
         self.assertEqual(message_h2_tag.text, "Ce produit est déjà le meilleur de sa catégorie")
-class ProductPageSeleniumTest(StaticLiveServerTestCase):
+class ProductPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome(CHROMEDRIVER_PATH)
@@ -190,7 +192,7 @@ class ProductPageSeleniumTest(StaticLiveServerTestCase):
 # -------------------------------------------------------------------------------------------- #
 
 # -------------------------------- Users APP functional tests ---------------------------- #
-class RegisterPageSeleniumTest(StaticLiveServerTestCase):
+class RegisterPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome(CHROMEDRIVER_PATH)
@@ -269,5 +271,5 @@ class RegisterPageSeleniumTest(StaticLiveServerTestCase):
             div_fav_a_tag = div_fav.find_element_by_tag_name('a')
             self.assertEqual(div_fav_a_tag.get_attribute('href'),self.live_server_url + f'/product/{favorite.codebar}')
             
-            div_fav_h6_tag = div_fav.find_element_by_tag_name('h6')
-            self.assertEqual(div_fav_h6_tag.text, favorite.name)
+            div_fav_p_tag = div_fav.find_element_by_tag_name('p')
+            self.assertEqual(div_fav_p_tag.text, favorite.name)
