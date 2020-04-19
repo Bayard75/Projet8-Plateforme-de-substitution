@@ -31,7 +31,7 @@ def get_substituts_list(product_to_sub):
     
     if len(subs_last_cat) < 6 and product_to_sub.fallback_cat != 'None':
         fallback_cat = Category.objects.get(name=product_to_sub.fallback_cat)
-        subs_fallback_cat = fallback_cat.products.all().filter(grade__lte=product_to_sub.grade).order_by('grade').exclude(codebar=product_to_sub.codebar).exclude(name__in=subs_last_cat)
+        subs_fallback_cat = fallback_cat.products.all().filter(grade__lte=product_to_sub.grade).order_by('grade').exclude(codebar=product_to_sub.codebar).exclude(codebar__in=subs_last_cat)
         # We can now concatenate the two querryset into one list
         substitut_list = list(chain(subs_last_cat, subs_fallback_cat))
 

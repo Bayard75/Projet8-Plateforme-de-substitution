@@ -16,22 +16,23 @@
         <section id="product_result" style="background-color: #E8A75D;position: relative;">
             <div class="container">
                 <!-- Start: Animation Cards -->
-                <div class="row d-flex flex-row align-items-center space-rows">
-                {% for favorite in user.profile.favorites.all%}
-                    <div class="col" id="{{favorite.name}}">
-                        <a href="product/{{favorite.codebar}}" style="text-decoration: none;">
-                            <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950">
-                                <div class="card-header" style="background-image: url(&quot;{{favorite.image}}&quot;); height:400px; background-position:center; background-repeat:no-repeat;"></div>
-                                <div class="card-body">
-                                    <h6>{{favorite.name}}</h6>
+                <div class="row space-rows">
+                <!-- Database search results-->
+                    {% for favorite in user.profile.favorites.all  %}
+                    <div class="col " id="{{favorite.name}}">
+                            <a href="product/{{favorite.codebar}}">
+                                <div class="card cards-shadown cards-hover">
+                                    <div class="card-header" style="background-image:url({{favorite.image}}); background-repeat:no-repeat; background-position:center; background-size:cover;">
+                                    </div>
+                                    <div class="card-body">
+                                        <p class="cardbody-sub-text">{{favorite.name}}<p>
+                                    </div>
                                 </div>
-                            </div>
-                        </a>
+                            </a>
                         <button class="btn btn-primary" onclick ="remove_fav(this,'{{favorite.codebar}}','{{user.email}}');" style="margin-left:50px; margin-top:10px">Retirez des favoris </button>
                     </div>
                 {% endfor %}
-                </div>
-                <!-- End: Animation Cards -->
+                </div>      <!-- End: Animation Cards -->
             </div>
         </section>
             {% else %}

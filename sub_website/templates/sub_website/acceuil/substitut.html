@@ -20,31 +20,33 @@
                 </div>
             </div>
             <!-- Start: Animation Cards -->
-            <div class="row d-flex flex-row align-items-center flex-wrap space-rows">
-
-                <!-- Database search results -->
-                 {% for substitut in substituts %}
-                <div class="col substitut" id="{{substitut.name}}">
-                    <a href="/product/{{substitut.codebar}}" style="text-decoration: none;">
-                        <div class="card cards-shadown cards-hover" data-aos="flip-left" data-aos-duration="950"><span class="badge badge-primary border rounded-circle shadow-lg" style="font-size: 37px; position : absolute; top : -30px; right: -15px ; text-transform: uppercase;" >{{substitut.grade}}</span>
-                            <div class="card-header" style="background-image: url(&quot;{{substitut.image}}&quot;); height:400px; background-position:center; background-repeat:no-repeat;"></div>
-                            <div class="card-body">
-                                <h6>{{substitut.name}}</h6>
+            <div class="row space-rows">
+                {% for substitut in substituts  %}
+                <div class="col">
+                        <a href="/product/{{substitut.codebar}}">
+                            <div class="card cards-shadown cards-hover">
+                                <div class="card-header" style="background-image:url({{substitut.image}}); background-size:cover;background-position:center; background-repeat: no-repeat;">
+                                    <span class="badge badge-primary border rounded-circle shadow-lg" style="font-size: 37px; position : absolute; top : -30px; right: -15px ; text-transform: uppercase;" >{{substitut.grade}}</span>
+                                </div>
+                                <div class="card-body">
+                                    <p class="cardbody-sub-text">{{substitut.name}}<p>
+                                </div>
                             </div>
-                    </a>
+                        </a>
                             {% if user.is_authenticated %}
                             <div class="custom-control custom-checkbox">
-                            {% csrf_token %}
-                                {% if substitut in  user.profile.favorites.all %}
-                                <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" checked onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label></div>
-                                {%else%}
-                                <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label></div>
-                                {% endif %}
+                                {% csrf_token %}
+                                    {% if substitut in  user.profile.favorites.all %}
+                                    <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" checked onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label></div>
+                                    {%else%}
+                                    <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label></div>
+                                    {% endif %}
+                            </div>
                             {% endif %}
-                        </div>
-                </div>
+
                 {% endfor %}
             </div>
+
             <!-- End: Animation Cards -->
             {% if paginate %}
             <div class="clearfix"></div>
@@ -64,6 +66,7 @@
             <h2><strong>Ce produit est déjà le meilleur de sa catégorie</strong></h2>
             </div>
         {%endif%}
+        </div>
         </div>
     </section>
     <!-- Start: Footer Basic -->
