@@ -33,41 +33,41 @@
                                 </div>
                             </div>
                         </a>
-                            {% if user.is_authenticated %}
+                             {% if user.is_authenticated %}
                             <div class="custom-control custom-checkbox">
                                 {% csrf_token %}
                                     {% if substitut in  user.profile.favorites.all %}
-                                    <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" checked onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label></div>
+                                    <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" checked onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label>
                                     {%else%}
-                                    <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label></div>
+                                    <input type="checkbox" style:"height:20px; margin-top:5px; margin-right: 20px;" onclick="fav_aliment(this,'{{substitut.codebar}}', '{{user.email}}');" /><label >Sauvegarder</label>
                                     {% endif %}
                             </div>
                             {% endif %}
                 </div>
                 {% endfor %}
+            
+                <!-- End: Animation Cards -->
+                {% if paginate %}
+                <div class="clearfix"></div>
+                <div class="btn-toolbar" style="margin-left: 276px;">
+                    {% if substituts.has_previous %}
+                            <a class="btn btn-primary"  href="?page=1" style="background-color: #345A61;margin-right: 21px;">Première page</a>
+                            <a class="btn btn-primary"  href="?page={{ substituts.previous_page_number}}" style="background-color: #345A61;margin-right: 21px;">Précedent</a>
+                    {% endif %}
+                    {% if substituts.has_next %}
+                            <a class="btn btn-primary"  href="?page={{ substituts.next_page_number}}" style="background-color: #345A61;margin-right: 21px;">Suivant</a>
+                            <a class="btn btn-primary"  href="?page={{ substituts.paginator.num_pages}}" style="background-color: #345A61;margin-right: 21px;">Dernière page</a>
+                    {% endif %}
+                </div>
             </div>
-
-            <!-- End: Animation Cards -->
-            {% if paginate %}
-            <div class="clearfix"></div>
-            <div class="btn-toolbar" style="margin-left: 276px;">
-                {% if substituts.has_previous %}
-                        <a class="btn btn-primary"  href="?page=1" style="background-color: #345A61;margin-right: 21px;">Première page</a>
-                        <a class="btn btn-primary"  href="?page={{ substituts.previous_page_number}}" style="background-color: #345A61;margin-right: 21px;">Précedent</a>
-                {% endif %}
-                {% if substituts.has_next %}
-                        <a class="btn btn-primary"  href="?page={{ substituts.next_page_number}}" style="background-color: #345A61;margin-right: 21px;">Suivant</a>
-                        <a class="btn btn-primary"  href="?page={{ substituts.paginator.num_pages}}" style="background-color: #345A61;margin-right: 21px;">Dernière page</a>
-                {% endif %}
             </div>
-            {% endif %}
+                {% endif %}
         
-        {%else%}
-            <h2><strong>Ce produit est déjà le meilleur de sa catégorie</strong></h2>
-            </div>
-        {%endif%}
-        </div>
-        </div>
+                {%else%}
+                    <h2><strong>Ce produit est déjà le meilleur de sa catégorie</strong></h2>
+                    </div>
+                </div>
+                {%endif%}
     </section>
     <!-- Start: Footer Basic -->
 {% include 'sub_website/acceuil/footer.html' %}
