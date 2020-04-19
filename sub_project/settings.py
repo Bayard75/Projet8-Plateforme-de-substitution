@@ -26,7 +26,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = os.environ.get('SUB_PROJECT_SK')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get('DEBUG_ENV_VARIABLE')
+DEBUG = False
 
 ALLOWED_HOSTS = ['purbeurrebayard.herokuapp.com',
                 'localhost']
