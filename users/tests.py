@@ -2,8 +2,8 @@ from django.test import TestCase, SimpleTestCase
 from django.contrib.auth.models import User
 
 from django.urls import reverse
-from .forms import UserRegisterForm, LoginForm
 
+from .forms import UserRegisterForm, LoginForm
 from .models import Profile
 from sub_website.models import Product
 
