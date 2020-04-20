@@ -119,5 +119,3 @@ class PaginateFunctionTestCase(TestCase):
         list_paginated = f.paginate(product_list,2,1)
         self.assertEqual(len(list_paginated), 0)
 
-
-'''             functional tests        '''
