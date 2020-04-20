@@ -5,16 +5,18 @@ from django.dispatch import receiver
 
 from .models import Profile
 
-'''This file will be used to create a profile 
+'''This file will be used to create a profile
 and atach it to any new user created'''
 
-@receiver(post_save, sender=User)
-def create_profile (sender, instance, created,**kwargs):
 
-    if created :
+@receiver(post_save, sender=User)
+def create_profile(sender, instance, created, **kwargs):
+
+    if created:
         Profile.objects.create(user=instance)
 
+
 @receiver(post_save, sender=User)
-def save_profile (sender, instance,**kwargs):
+def save_profile(sender, instance, **kwargs):
 
     instance.profile.save()

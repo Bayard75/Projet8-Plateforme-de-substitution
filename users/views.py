@@ -1,4 +1,4 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
@@ -12,8 +12,9 @@ import json
 
 # Create your views here.
 
+
 def register(request):
-    if request.method =="POST":
+    if request.method == "POST":
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
@@ -43,11 +44,11 @@ def add_favorite(request):
             user.favorites.add(aliment)
         else:
             user.favorites.remove(aliment)
-    
+
     return redirect('website-acceuil')
-    
-    
+
+
 @login_required
 def show_favorite(request):
-    
-    return render(request,'users/favorites.html')
+
+    return render(request, 'users/favorites.html')

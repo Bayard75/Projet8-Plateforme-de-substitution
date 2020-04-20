@@ -5,9 +5,12 @@ from .logic import functions as f
 from .models import Category, Product
 
 # Create your views here.
+
+
 def home_page(request):
     '''Function that handles our home page'''
     return render(request, 'sub_website/acceuil/index.html')
+
 
 def submit(request):
     '''This view will take in a search and return a results
@@ -22,11 +25,12 @@ def submit(request):
     results_db_list = Product.objects.filter(name__icontains=value)
     page_number = request.GET.get('page')
 
-    context ={
+    context = {
         'results_db': f.paginate(results_db_list, 6, page_number),
         'paginate': True
     }
     return render(request, 'sub_website/acceuil/results.html', context)
+
 
 def substitut(request, codebar):
     '''This view will take in a product codebar and return a template
@@ -34,31 +38,31 @@ def substitut(request, codebar):
 
     page_number = request.GET.get('page')
     try:
-        product_searched = Product.objects.get(codebar =codebar)
+        product_searched = Product.objects.get(codebar=codebar)
     except Product.DoesNotExist:
         raise Http404('Le produit recherché n"existe pas')
 
     aliment = {
-        'name' : product_searched.name,
+        'name': product_searched.name,
         'grade': product_searched.grade,
         'image': product_searched.image
-        } # This dict will be used in our template to display the product we want to substitut
-    
+        }  # Dict used in our template for chosen_product
 
     substituts = f.get_substituts_list(product_searched)
 
     context = {
         'chosen_aliment': aliment,
-        'substituts' : f.paginate(substituts, 6, page_number),
+        'substituts': f.paginate(substituts, 6, page_number),
         'paginate': True
     }
     return render(request, 'sub_website/acceuil/substitut.html', context)
 
+
 def product(request, codebar):
     ''' This view will take in a codebar and
-    return a template with all revelant information about 
+    return a template with all revelant information about
     a product'''
-    
+
     try:
         product = Product.objects.get(codebar=codebar)
     except Product.DoesNotExist:
@@ -67,7 +71,8 @@ def product(request, codebar):
     context = {
         'product': product
     }
-    return render(request,'sub_website/acceuil/product.html', context)
+    return render(request, 'sub_website/acceuil/product.html', context)
+
 
 def legals(request):
     '''This view will display the legals mentions template'''
