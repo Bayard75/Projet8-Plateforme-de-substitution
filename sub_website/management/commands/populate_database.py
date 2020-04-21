@@ -27,10 +27,10 @@ class Command(BaseCommand):
 
                 try:
                     cat_list = product['categories'].split(',')
+                    # We put all the Product categories into a list
                     for index, sentence in enumerate(cat_list):
                         cat_list[index] = sentence.strip()
                         # Deleting withespace to avoid duplacate
-                    # We put all the Product categories into a list
 
                     aliment = Product.objects.create(
                         codebar=product['code'],
