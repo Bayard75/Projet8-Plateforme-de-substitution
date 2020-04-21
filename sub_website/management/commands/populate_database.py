@@ -27,6 +27,9 @@ class Command(BaseCommand):
 
                 try:
                     cat_list = product['categories'].split(',')
+                    for index, sentence in enumerate(cat_list):
+                        cat_list[index] = sentence.strip()
+                        # Deleting withespace to avoid duplacate
                     # We put all the Product categories into a list
 
                     aliment = Product.objects.create(
@@ -75,3 +78,10 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         self.populate_aliment()
+
+p = "Yaourt sucrés,Yaourt sucré"
+a = p.split(',')
+for b, c in enumerate(a):
+    a[b] = c.strip()
+
+print(a)
