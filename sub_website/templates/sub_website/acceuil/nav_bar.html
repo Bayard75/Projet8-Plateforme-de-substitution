@@ -28,7 +28,7 @@
             <div class="collapse navbar-collapse" id="navbarResponsive">
                 <form class="form-inline mx-auto" action="/submit" method="POST">
                 {% csrf_token %}
-                <input class="form-control" type="text" id="input_nav_bar" name="value" placeholder="une aliment, une marque..." required="" style="width: 295px;margin-left: 51px;"></form>
+                <input class="form-control" type="text" id="input_nav_bar" name="value" placeholder="un aliment, une marque..." required="" style="width: 295px;margin-left: 51px;"></form>
                 <ul class="nav navbar-nav ml-auto">
                 {% if user.is_authenticated %}
                     <li class="nav-item" role="presentation" id ="account_nav" style="padding-right: 19px;padding-bottom: 0px;padding-left: -10px;"><a class="nav-link js-scroll-trigger" href="{%url 'account'%}" style="font-size: 37px;"><i class="fa fa-user-o"></i></a></li>
