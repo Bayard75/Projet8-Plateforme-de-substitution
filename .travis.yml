@@ -1,26 +1,28 @@
-dist: bionic
 language: python
+job:
+  include:
+        env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
 
 python:
-  - '3.7'
-
+  - "2.7"
+  - "3.4"
+  - "3.5"
+  - "3.6"      # current default Python on Travis CI
+  - "3.7"
+  - "3.8"
+  - "3.8-dev"  # 3.8 development branch
+  - "nightly"  # nightly build
+# command to install dependencies
 addons:
   # ajouter uniquement les navigateurs utilisés
   chrome: stable
   firefox: latest
-
-install:
-  pip install -r requirements.txt
-
-before_script:
-  - python manage.py migrate
-
-env:
-  global:
-    - DJANGO_SETTINGS_MODULE="config.settings.travis"
-
 services:
-  - postgresql
-
+  -postgresql
+install:
+  - pip install -r requirements.txt
+# command to run tests
+before_script:
+- python manage.py migrate
 script:
-  - python manage.py test 
+  - python manage.py test
