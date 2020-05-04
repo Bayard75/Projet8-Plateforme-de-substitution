@@ -19,6 +19,5 @@ install:
 # command to run tests
 before_script:
 - python manage.py migrate
-- python manage.py populate_database
 script:
   - python manage.py test
