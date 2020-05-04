@@ -2,7 +2,7 @@ language: python
 job:
   include:
         env: PATH=/c/Python38:/c/Python38/Scripts:$PATH
-              env: PATH=functional_tests\chromedriver.exe
+        env: PATH=functional_tests\chromedriver.exe
 
 python:
   - "2.7"
@@ -19,6 +19,5 @@ install:
 # command to run tests
 before_script:
 - python manage.py migrate
-- python manage.py populate_database
 script:
   - python manage.py test

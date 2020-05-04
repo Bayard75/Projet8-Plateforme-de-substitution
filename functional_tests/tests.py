@@ -1,4 +1,4 @@
-import time
+''''import time
 import random
 
 from django.urls import reverse
@@ -15,7 +15,7 @@ CHROMEDRIVER_PATH = r'functional_tests\chromedriver.exe'
 
 
 def create_product(codebar, name, grade):
-    '''Create a product and a category in our database'''
+    'Create a product and a category in our database'
     try:
         test_cat = Category.objects.create(name='test_cat')
     except CategoryIntegrityError:
@@ -274,3 +274,4 @@ class RegisterPageSeleniumTest(LiveServerTestCase):
 
             div_fav_p_tag = div_fav.find_element_by_tag_name('p')
             self.assertEqual(div_fav_p_tag.text, favorite.name)
+''''
