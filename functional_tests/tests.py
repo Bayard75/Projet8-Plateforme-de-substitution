@@ -41,7 +41,7 @@ def create_product(codebar, name, grade):
 class IndexPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(chrome_options=chrome_options)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
 
     def tearDown(self):
         self.selenium.quit()
@@ -169,7 +169,7 @@ class SubstitutPageSeleniumTest(LiveServerTestCase):
 class ProductPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(chrome_options=chrome_options)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
 
     def tearDown(self):
         self.selenium.quit()
@@ -200,7 +200,7 @@ class ProductPageSeleniumTest(LiveServerTestCase):
 class RegisterPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(chrome_options=chrome_options)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
 
         User.objects.create_user(username='usernameTest',
                                  email='testEmail@gmail.com',
