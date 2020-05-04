@@ -58,7 +58,7 @@ class IndexPageSeleniumTest(LiveServerTestCase):
         form_input = selenium.find_elements_by_id('input_index')
         submit = selenium.find_element_by_name('submit')
 
-        form_input[0].send_keys('nutella')
+        form_input.send_keys('nutella')
         submit.send_keys(Keys.RETURN)
         time.sleep(2)
 
@@ -91,7 +91,7 @@ class IndexPageSeleniumTest(LiveServerTestCase):
         form_input = selenium.find_elements_by_id('input_nav_bar')
         submit = selenium.find_element_by_name('submit')
 
-        form_input[0].send_keys('nutella')
+        form_input.send_keys('nutella')
         submit.send_keys(Keys.RETURN)
         time.sleep(2)
         # We check to see if all ouf our elements are indeed there
@@ -127,7 +127,7 @@ class IndexPageSeleniumTest(LiveServerTestCase):
 class SubstitutPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(ChromeDriverManager().instal(),chrome_options=chrome_options)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
         substituts = ['sub1', 'sub2', 'sbu3', 'sub4', 'sub5', 'sub6']
         for index, sub in enumerate(substituts):
             create_product(index, sub, 'b')
