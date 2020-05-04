@@ -1,0 +1,17 @@
+version: 3.7
+jobs:
+  build:
+    working_directory: ~/sub_project
+      environment:
+          DEBUG_ENV_VARIABLE: 'True'
+          SUB_PROJECT_SK: '3bed2b4a461e5f699fa66392a870c0e5e566004ec4e2f4b6'
+
+    steps :
+      - checkout
+      - run:
+        command : |
+          pip install virtualev
+          virtualenv env
+          pip install -r requirements.txt
+          python manage.py migrate
+    
