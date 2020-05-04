@@ -16,7 +16,7 @@ jobs:
           name: Settings Environnement variables
           command: |
             echo 'export DEBUG_ENV_VARIABLE="True"'
-            echo 'export SUB_PROJECT_SK='3bed2b4a461e5f699fa66392a870c0e5e566004ec4e2f4b6''
+            echo 'export SUB_PROJECT_SK="3bed2b4a461e5f699fa66392a870c0e5e566004ec4e2f4b6"'
       - run:
           name: Migration database
           command: |
