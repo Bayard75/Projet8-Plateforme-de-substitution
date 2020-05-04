@@ -85,16 +85,16 @@ WSGI_APPLICATION = 'sub_project.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
-if os.environ('TRAVIS') =="True":
+if 'TRAVIS' in os.environ:
     DATABASES = {
         'default': {
-            'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'travis_ci_test',
-            'USER': 'postgres',
+            'ENGINE':   'django.db.backends.postgresql_psycopg2',
+            'NAME':     'travisci',
+            'USER':     'postgres',
             'PASSWORD': '',
-            'HOST': '',
-            'PORT': '',
-        },
+            'HOST':     'localhost',
+            'PORT':     '',
+        }
     }
 else:
     DATABASES = {
