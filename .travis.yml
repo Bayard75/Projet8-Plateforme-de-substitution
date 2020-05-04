@@ -22,7 +22,7 @@ addons:
 services:
   -postgresql
 before_script:
-  - psql -c "CREATE DATABASE mydb;" -U postgres
+  - psql -c "CREATE DATABASE travisci;" -U postgres
   - install -webdrivers
   - python manage.py migrate
 
