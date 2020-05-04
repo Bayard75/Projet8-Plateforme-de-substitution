@@ -127,7 +127,7 @@ class IndexPageSeleniumTest(LiveServerTestCase):
 class SubstitutPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(ChromeDriverManager().instal()chrome_options=chrome_options)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().instal(),chrome_options=chrome_options)
         substituts = ['sub1', 'sub2', 'sbu3', 'sub4', 'sub5', 'sub6']
         for index, sub in enumerate(substituts):
             create_product(index, sub, 'b')
