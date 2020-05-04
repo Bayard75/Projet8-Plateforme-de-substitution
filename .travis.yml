@@ -32,7 +32,6 @@ install:
 # command to run tests
 before_script:
   - psql -c 'create database travisci;' -U postgres
-  - install -webdrivers
   - python manage.py migrate
 
 script:
