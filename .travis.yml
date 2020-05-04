@@ -1,9 +1,8 @@
-  
 dist: bionic
 language: python
 
 python:
-  - '3.6'
+  - '3.7'
 
 addons:
   # ajouter uniquement les navigateurs utilisés
@@ -11,7 +10,7 @@ addons:
   firefox: latest
 
 install:
-  pip install-r requirements.txt
+  pip install -r requirements.txt
 
 before_script:
   # ajouter tchappui-webdrivers dans requirements.txt
