@@ -12,6 +12,10 @@ from django.db import IntegrityError as CategoryIntegrityError
 from sub_website.models import Product, Category
 from users.models import Profile
 
+chrome_options = webdriver.ChromeOptions()
+chrome_options.headless = True
+
+
 
 
 def create_product(codebar, name, grade):
@@ -37,7 +41,7 @@ def create_product(codebar, name, grade):
 class IndexPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(ChromeDriverManager().install())
+        self.selenium = webdriver.Chrome(chrome_options=chrome_options)
 
     def tearDown(self):
         self.selenium.quit()
@@ -123,7 +127,7 @@ class IndexPageSeleniumTest(LiveServerTestCase):
 class SubstitutPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(ChromeDriverManager().install())
+        self.selenium = webdriver.Chrome(chrome_options=chrome_options)
         substituts = ['sub1', 'sub2', 'sbu3', 'sub4', 'sub5', 'sub6']
         for index, sub in enumerate(substituts):
             create_product(index, sub, 'b')
@@ -165,7 +169,7 @@ class SubstitutPageSeleniumTest(LiveServerTestCase):
 class ProductPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(ChromeDriverManager().install())
+        self.selenium = webdriver.Chrome(chrome_options=chrome_options)
 
     def tearDown(self):
         self.selenium.quit()
@@ -196,7 +200,7 @@ class ProductPageSeleniumTest(LiveServerTestCase):
 class RegisterPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(ChromeDriverManager().install())
+        self.selenium = webdriver.Chrome(chrome_options=chrome_options)
 
         User.objects.create_user(username='usernameTest',
                                  email='testEmail@gmail.com',
