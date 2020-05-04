@@ -58,7 +58,7 @@ class IndexPageSeleniumTest(LiveServerTestCase):
         form_input = selenium.find_elements_by_id('input_index')
         submit = selenium.find_element_by_name('submit')
 
-        form_input.send_keys('nutella')
+        form_input[0].send_keys('nutella')
         submit.send_keys(Keys.RETURN)
         time.sleep(2)
 
@@ -87,11 +87,11 @@ class IndexPageSeleniumTest(LiveServerTestCase):
         product_to_search = Product.objects.filter(name__icontains='nutella')
         selenium.get(self.live_server_url)
 
-        time.sleep(2)
+        time.sleep(6)
         form_input = selenium.find_elements_by_id('input_nav_bar')
         submit = selenium.find_element_by_name('submit')
 
-        form_input.send_keys('nutella')
+        form_input[0].send_keys('nutella')
         submit.send_keys(Keys.RETURN)
         time.sleep(2)
         # We check to see if all ouf our elements are indeed there
