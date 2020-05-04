@@ -21,11 +21,6 @@ addons:
 
 services:
   -postgresql
-before_script:
-  - psql -c "CREATE DATABASE travisci;" -U postgres
-  - install -webdrivers
-  - python manage.py migrate
-
 before_install:
   - export DJANGO_SETTINGS_MODULE=sub_project.settings
   - export PYTHONPATH=$HOME/builds/Bayard75/Projet8-Plateforme-de-substitution
@@ -36,7 +31,10 @@ install:
   - pip install psycopg2 --quiet
 # command to run tests
 before_script:
-- python manage.py migrate
+  - psql -c 'create database travisci;' -U postgres
+  - install -webdrivers
+  - python manage.py migrate
+
 script:
   - python manage.py test
 
