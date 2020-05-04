@@ -17,8 +17,14 @@ addons:
   # ajouter uniquement les navigateurs utilisés
   chrome: stable
   firefox: latest
+
 services:
   -postgresql
+
+env:
+  global:
+    - DJANGO_SETTINGS_MODULE="config.settings.travis"
+
 install:
   - pip install -r requirements.txt
 # command to run tests
