@@ -1,17 +1,31 @@
-version: 3.7
-jobs:
-  build:
-    working_directory: ~/sub_project
-      environment:
-          DEBUG_ENV_VARIABLE: 'True'
-          SUB_PROJECT_SK: '3bed2b4a461e5f699fa66392a870c0e5e566004ec4e2f4b6'
+version: 2.1
 
-    steps :
+orbs:
+  python: circleci/python@0.2.1
+
+jobs:
+  build-and-test:
+    executor: python/default
+    steps:
       - checkout
       - run:
-        command : |
-          pip install virtualev
-          virtualenv env
-          pip install -r requirements.txt
-          python manage.py migrate
-    
+          name: Install python dependancies
+          command: |
+            pip install --user -r requirements.txt
+      - run:
+          name: Migration database
+          command: |
+            python manage.py migrate
+      - run:
+          name: Populating Database
+          command: |
+            python manage.py populate_database
+      - run:
+          name: Testing app
+          command: |
+            python manage.py test
+
+workflows:
+  main:
+    jobs:
+      - build-and-test
