@@ -5,13 +5,12 @@ from django.urls import reverse
 from django.contrib.staticfiles.testing import LiveServerTestCase
 from django.contrib.auth.models import User
 from selenium import webdriver
+from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.common.keys import Keys
 from django.db import IntegrityError as CategoryIntegrityError
 
 from sub_website.models import Product, Category
 from users.models import Profile
-
-CHROMEDRIVER_PATH = r'functional_tests\chromedriver.exe'
 
 
 def create_product(codebar, name, grade):
@@ -37,7 +36,7 @@ def create_product(codebar, name, grade):
 class IndexPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(CHROMEDRIVER_PATH)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install())
 
     def tearDown(self):
         self.selenium.quit()
@@ -123,7 +122,7 @@ class IndexPageSeleniumTest(LiveServerTestCase):
 class SubstitutPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(CHROMEDRIVER_PATH)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install())
         substituts = ['sub1', 'sub2', 'sbu3', 'sub4', 'sub5', 'sub6']
         for index, sub in enumerate(substituts):
             create_product(index, sub, 'b')
@@ -165,7 +164,7 @@ class SubstitutPageSeleniumTest(LiveServerTestCase):
 class ProductPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(CHROMEDRIVER_PATH)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install())
 
     def tearDown(self):
         self.selenium.quit()
@@ -196,7 +195,7 @@ class ProductPageSeleniumTest(LiveServerTestCase):
 class RegisterPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(CHROMEDRIVER_PATH)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install())
 
         User.objects.create_user(username='usernameTest',
                                  email='testEmail@gmail.com',
