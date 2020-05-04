@@ -13,8 +13,6 @@ install:
   pip install -r requirements.txt
 
 before_script:
-  # ajouter tchappui-webdrivers dans requirements.txt
-  - install-webdrivers
   - python manage.py migrate
 
 env:
