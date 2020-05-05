@@ -14,7 +14,8 @@ from users.models import Profile
 
 chrome_options = webdriver.ChromeOptions()
 chrome_options.headless = True
-
+chrome_options.add_argument('--no-sandbox')
+chrome_options.add_argument('--disable-dev-shm-usage')
 
 
 
@@ -42,6 +43,8 @@ class IndexPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
+        self.selenium.implicitly_wait(30)
+        self.selenium.maximize_window()
 
     def tearDown(self):
         self.selenium.quit()
@@ -128,6 +131,8 @@ class SubstitutPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
+        self.selenium.implicitly_wait(30)
+        self.selenium.maximize_window()
         substituts = ['sub1', 'sub2', 'sbu3', 'sub4', 'sub5', 'sub6']
         for index, sub in enumerate(substituts):
             create_product(index, sub, 'b')
@@ -170,6 +175,8 @@ class ProductPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
+        self.selenium.implicitly_wait(30)
+        self.selenium.maximize_window()
 
     def tearDown(self):
         self.selenium.quit()
@@ -201,7 +208,9 @@ class RegisterPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
         self.selenium = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
-
+        self.selenium.implicitly_wait(30)
+        self.selenium.maximize_window()
+        
         User.objects.create_user(username='usernameTest',
                                  email='testEmail@gmail.com',
                                  password='test2341')
