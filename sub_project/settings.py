@@ -28,7 +28,8 @@ SECRET_KEY = os.environ.get('SUB_PROJECT_SK')
 DEBUG = (os.environ.get('DEBUG_ENV_VARIABLE')=="'True'")
 
 ALLOWED_HOSTS = ['purbeurrebayard.herokuapp.com',
-                'localhost']
+                'localhost',
+                'ec2-15-236-90-74.eu-west-3.compute.amazonaws.com']
 
 
 # Application definition
@@ -155,3 +156,4 @@ LOGIN_REDIRECT_URL = 'website-acceuil'
 LOGIN_URL = 'login'
 
 django_heroku.settings(locals())
+
