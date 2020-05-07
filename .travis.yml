@@ -26,6 +26,7 @@ before_install:
 install:
   - pip install -r requirements.txt
   - pip install psycopg2 --quiet
+  - export SUB_PROJECT_SK='3bed2b4a461e5f699fa66392a870c0e5e566004ec4e2f4b6'
 # command to run tests
 before_script:
   - psql -c 'create database travisci;' -U postgres
