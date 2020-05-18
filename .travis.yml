@@ -19,7 +19,7 @@ addons:
 services:
   -postgresql
 before_install:
-  - export DJANGO_SETTINGS_MODULE=sub_project.settings
+  - export DJANGO_SETTINGS_MODULE=sub_project.settings.travis
   - export PYTHONPATH=$HOME/builds/Bayard75/Projet8-Plateforme-de-substitution
   - export PIP_USE_MIRRORS=true
 
