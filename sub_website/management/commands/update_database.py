@@ -11,7 +11,7 @@ class Command(BaseCommand):
 
     help = 'Populate our database with categories and Products'
 
-    def populate_aliment(self):
+    def update_databse(self):
         '''This function will populate our database with aliment
         from the OpenfoodFacts API'''
 
@@ -24,57 +24,50 @@ class Command(BaseCommand):
             data = response.json()
 
             for product in data['products']:
-
                 try:
                     cat_list = product['categories'].split(',')
                     # We put all the Product categories into a list
                     for index, sentence in enumerate(cat_list):
                         cat_list[index] = sentence.strip()
-                        # Deleting withespace to avoid duplacate
-
-                    aliment = Product.objects.create(
-                        codebar=product['code'],
-                        name=product['product_name_fr'],
-                        grade=product['nutrition_grade_fr'],
-                        url=product['url'],
-                        reperes=product['image_nutrition_url'],
-                        image=product['image_front_url'],
-                        last_cat=cat_list[-1]
-                        # Will be used to find a substitut later
+                    
+                    aliment, created = Product.objects.update_or_create(
+                        codebar = product['code'],
+                        name= product['product_name_fr'],
+                        defaults={
+                                'grade': product['nutrition_grade_fr'],
+                                'url': product['url'],
+                                'reperes': product['image_nutrition_url'],
+                                'image': product['image_front_url'],
+                                'last_cat':cat_list[-1]}
                     )
+                
+                    if created:
+                        print("L'aliment suivant à été crée : ", product['product_name_fr'])
+                    else:
+                        print("L'aliment suivant à été updaté : ", product['product_name_fr'])
 
                     if len(cat_list) > 1:
                         # If we have more than 1 cat we can add a fallback cat
                         aliment.fallback_cat = cat_list[-2]
                         aliment.save()
 
-                    print('Aliment suivant ajouté : ',
-                          product['product_name_fr'])
-
                     for cat in cat_list:
                         try:
                             category_to_create = Category.objects.create(name=cat)
                             aliment.categories.add(category_to_create)
-                            print('Category suivante ajouté : ', cat)
 
                         except CategoryIntegrityError:
-                            # If the Category as already been created
-                            print('La category suivante est déjà inserée : ', cat)
                             category_to_add = Category.objects.get(name=cat)
-                            aliment.categories.add(category_to_add)
-
+                            aliment.categories.add(category_to_add)   
 
                 except ProductIntegrityError:
-                    # If a product with the same name is present in the database we go to the next one
-                    print('Un aliment de ce nom est déjà present : ',
-                          product['product_name_fr'])
                     pass
-
                 except KeyError:
                     # In case a product doesn't have all the releveant information we go the next one
                     pass
             print('page : ', page)
             page += 1
+ 
 
     def handle(self, *args, **options):
-        self.populate_aliment()
+        self.update_databse()
