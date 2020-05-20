@@ -29,10 +29,10 @@ class Command(BaseCommand):
                     # We put all the Product categories into a list
                     for index, sentence in enumerate(cat_list):
                         cat_list[index] = sentence.strip()
-                    
+
                     aliment, created = Product.objects.update_or_create(
-                        codebar = product['code'],
-                        name= product['product_name_fr'],
+                        codebar=product['code'],
+                        name=product['product_name_fr'],
                         defaults={
                                 'grade': product['nutrition_grade_fr'],
                                 'url': product['url'],
@@ -40,11 +40,13 @@ class Command(BaseCommand):
                                 'image': product['image_front_url'],
                                 'last_cat':cat_list[-1]}
                     )
-                
+
                     if created:
-                        print("L'aliment suivant à été crée : ", product['product_name_fr'])
+                        print("L'aliment suivant à été crée : ",
+                                product['product_name_fr'])
                     else:
-                        print("L'aliment suivant à été updaté : ", product['product_name_fr'])
+                        print("L'aliment suivant à été updaté : ",
+                                product['product_name_fr'])
 
                     if len(cat_list) > 1:
                         # If we have more than 1 cat we can add a fallback cat
