@@ -1,13 +1,15 @@
+import os
 from . import *
+
+DEBUG = False
 
 DATABASES = {
         'default': {
             'ENGINE':   'django.db.backends.postgresql_psycopg2',
-            'NAME':     'travisci',
-            'USER':     'postgres',
+            'NAME':     os.environ.get('DB_NAME'),
+            'USER':     os.environ.get('DB_USER'),
             'PASSWORD': '',
             'HOST':     'localhost',
             'PORT':     '',
         }
 }
-DEBUG = True
