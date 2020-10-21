@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.contrib import messages
 
 from django.contrib.auth.decorators import login_required
-from .forms import UserRegisterForm
+from .forms import UserRegisterForm, UserUpdateForm, ProfileUpdateForme
 
 from django.views.decorators.csrf import csrf_exempt
 from .models import Profile
@@ -28,7 +28,23 @@ def register(request):
 
 @login_required
 def account(request):
-    return render(request, 'users/compte.html')
+    if request.method == 'POST':
+        u_form = UserUpdateForm(request.POST, instance=request.user)
+        p_form = ProfileUpdateForme(request.POST, request.FILES, instance=request.user.profile)
+        if u_form.is_valid() and p_form.is_valid():
+            u_form.save()
+            p_form.save()
+            messages.success(request, f'Compte mis à jour.')
+            return redirect('account')
+
+    else:
+        u_form = UserUpdateForm(instance=request.user)
+        p_form = ProfileUpdateForme(instance=request.user.profile)
+    context = {
+        'u_form': u_form,
+        'p_form': p_form
+    }
+    return render(request, 'users/compte.html', context=context)
 
 @csrf_exempt
 @login_required
@@ -47,8 +63,6 @@ def add_favorite(request):
 
     return redirect('website-acceuil')
 
-
 @login_required
 def show_favorite(request):
-
     return render(request, 'users/favorites.html')

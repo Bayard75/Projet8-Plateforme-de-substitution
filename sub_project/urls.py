@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.contrib.auth import views as auth_views
 from django.urls import path, include
 from users import views as user_views
-
+from django.conf import settings
+from django.conf.urls.static import static
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('sub_website.urls')),
@@ -26,7 +27,9 @@ urlpatterns = [
     path('inscription/', user_views.register, name='register'),
     path('compte/', user_views.account, name='account'),
     path('add_fav', user_views.add_favorite, name='add_fav'),
-    path('favorites', user_views.show_favorite, name='favorites')
+    path('favorites', user_views.show_favorite, name='favorites'),
     # Django will only send the string after the path procceed if there's an include
     # Here it will send '' to sub_website.urls
 ]
+
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

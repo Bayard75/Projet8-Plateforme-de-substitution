@@ -8,14 +8,37 @@
         <div class="container">
             <div class="row" style="background-image: url(&quot;{% static 'sub_website/acceuil/assets/img/ratatouille-11.jpg' %} &quot;);background-repeat: no-repeat;background-size: cover;height: 400px;">
                 <div class="col">
-                    <h1 id ="username" class="text-center border rounded border-dark shadow-lg" style="color: rgb(235,242,249);background-color: rgba(17,12,12,0.33);margin-top: 117px;">{{user.username}}</h1>
+                    <h1 id ="username" class="text-center border rounded border-dark shadow-lg" style="color: rgb(235,242,249);background-color: rgba(17,12,12,0.33);margin-top: 117px;">{{user.first_name}}</h1>
                 </div>
             </div>
-            <div class="row" style="padding-top: 103px; padding-bottom: 100px;">
+            <div class="row" style="padding-top: 103px; text-align:center;">
+                <div class="col" style="padding-top: 49px;">
+                    <img class="rounded-circle" style="margin-top:-70px; max-width:250px;" src="{{user.profile.profile_picture.url}}" />
+                </div>
+            </div>
+            <div class="row" style="padding-bottom: 100px;">
                 <div class="col-md-12" style="padding-top: 49px;">
                     <h1 class="text-center border rounded border-secondary shadow-lg" id="user_email">{{user.email}}</h1>
                 </div>
             </div>
+        </div>
+        <div class="container" style="padding-bottom:50px;">
+             <form class="border rounded shadow-lg" method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <h2 class="text-center">Mettre à jour votre profile</h2>
+                <div class="form-group">
+        
+                        <fieldset class="form-group">
+                            {{ u_form|crispy}}
+                            {{ p_form|crispy}}
+        
+                        </fieldset>
+                         <button class="btn btn-primary btn-block" name="submit" type="submit" style="background-color: #345A61;">
+                            Mettre a jour
+                        </button>
+                
+                </div>
+            </form>
         </div>
     </div>
     <!-- End: 2 Rows 1+1 Columns -->
