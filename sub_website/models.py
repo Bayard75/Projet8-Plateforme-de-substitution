@@ -1,4 +1,5 @@
 from django.db import models
+from django.db.models import TextField
 
 # Create your models here.
 
@@ -21,6 +22,7 @@ class Product(models.Model):
     reperes = models.URLField()
     image = models.URLField()
     last_cat = models.CharField(max_length=256)
+    stores = models.CharField(max_length=256, default='[]')
     fallback_cat = models.CharField(max_length=256, default='None')
 
     def __str__(self):

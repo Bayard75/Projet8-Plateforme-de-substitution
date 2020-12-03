@@ -9,7 +9,15 @@
                     <h1 style="color: rgb(0,0,0);height: 400px;" id="product_name">{{product.name}}</h1>
                 </div>
             </div>
+            <div class="row" id="stores_row" style="justify-content: center;">
+            {% for store in stores  %}
+                <a href="https://www.google.com/maps/search/{{store}}/" target="_blank" class="btn btn-info btn-lg">
+                <span class="glyphicon glyphicon-shopping-cart"></span> {{store}}
+                </a>
+            {% endfor %}
+    </div>
         </div>
+        
     </header>
     <section class="text-center" id="informations_product" style="background-color: #E8A75D;">
         <div class="container" style="padding-right: 1px;padding-top: 63px;">
@@ -34,6 +42,7 @@
                     </a>
                 </div>
             </div>
+
         </div>
     </section>
     <!-- Start: Footer Basic -->

@@ -4,9 +4,9 @@ from django.http import Http404
 from .logic import functions as f
 from .models import Category, Product
 
+import json 
+
 # Create your views here.
-
-
 def home_page(request):
     '''Function that handles our home page'''
     return render(request, 'sub_website/acceuil/index.html')
@@ -22,11 +22,14 @@ def submit(request):
 
     value = request.session['value']
     # We first need to get all the products containg the value searched
-    results_db_list = Product.objects.filter(name__icontains=value)
+    results_list = Product.objects.filter(name__icontains=value)
     page_number = request.GET.get('page')
-
+    
+    if not results_list:
+        results_list = f.get_from_api(value)
+    
     context = {
-        'results_db': f.paginate(results_db_list, 6, page_number),
+        'results_db': f.paginate(results_list, 6, page_number),
         'paginate': True
     }
     return render(request, 'sub_website/acceuil/results.html', context)
@@ -40,8 +43,7 @@ def substitut(request, codebar):
     try:
         product_searched = Product.objects.get(codebar=codebar)
     except Product.DoesNotExist:
-        raise Http404('Le produit recherché n"existe pas')
-
+        print("Le produit rechercher n'existe pas dans la base de donnée")
     aliment = {
         'name': product_searched.name,
         'grade': product_searched.grade,
@@ -67,10 +69,12 @@ def product(request, codebar):
         product = Product.objects.get(codebar=codebar)
     except Product.DoesNotExist:
         raise Http404('Le produit recherchez n"existe pas')
-
+    
     context = {
-        'product': product
-    }
+        'product': product,
+        'stores': json.loads(product.stores)
+        }
+
     return render(request, 'sub_website/acceuil/product.html', context)
 
 

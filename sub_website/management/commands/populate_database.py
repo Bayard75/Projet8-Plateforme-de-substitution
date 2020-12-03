@@ -1,9 +1,10 @@
 import requests
+import json
 
 from django.core.management.base import BaseCommand
 from django.db import IntegrityError as CategoryIntegrityError
-from django.db.utils import IntegrityError as ProductIntegrityError
 
+from django.db.utils import IntegrityError as ProductIntegrityError
 from sub_website.models import Category, Product
 
 
@@ -39,7 +40,8 @@ class Command(BaseCommand):
                         url=product['url'],
                         reperes=product['image_nutrition_url'],
                         image=product['image_front_url'],
-                        last_cat=cat_list[-1]
+                        last_cat=cat_list[-1],
+                        stores=json.dumps(product['stores_tags'])
                         # Will be used to find a substitut later
                     )
 

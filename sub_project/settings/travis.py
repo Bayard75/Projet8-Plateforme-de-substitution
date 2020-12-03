@@ -1,6 +1,8 @@
 import os
-from . import *
-
+#from . import *
+import json
+import requests
+'''
 DEBUG = False
 
 DATABASES = {
@@ -13,3 +15,14 @@ DATABASES = {
             'PORT':     '',
         }
 }
+'''
+search_url = f'https://fr.openfoodfacts.org/cgi/search.pl?search_terms=&search_simple=1&action=process&page=1&json=True'
+response = requests.get(search_url)
+data = response.json()
+for product in data['products']:
+    try:
+        stores = product['stores_tags']
+        print(stores)
+        print(type(stores))
+    except:
+        pass
