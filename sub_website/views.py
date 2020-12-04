@@ -65,7 +65,6 @@ def product(request, codebar):
     ''' This view will take in a codebar and
     return a template with all revelant information about
     a product'''
-
     try:
         product = Product.objects.get(codebar=codebar)
     except Product.DoesNotExist:
@@ -84,8 +83,16 @@ def legals(request):
 
     return render(request, 'sub_website/acceuil/legals.html')
 
+
 def categories(request):
-    pass
+    page_number = request.GET.get('page')
+    categories = Category.objects.all()
+    context = {
+        "categories": f.paginate(categories, 15, page_number),
+        "paginate": True,
+    }
+    return render(request, 'sub_website/acceuil/categories.html', context)
+
 
 def by_favorites(request):
     prefered_items = Product.objects.filter(favorited__gte=1).order_by('-favorited')
@@ -94,3 +101,14 @@ def by_favorites(request):
     }
     
     return render(request, 'sub_website/acceuil/favorited.html', context)
+
+
+def category(request, name):
+    page_number = request.GET.get('page')
+    chosen_cat = Category.objects.get(name=name)
+    cat_products = chosen_cat.products.all()
+    context = {
+        'results_db': f.paginate(cat_products, 6, page_number),
+        'paginate': True,
+    }
+    return render(request, 'sub_website/acceuil/results.html', context)

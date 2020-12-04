@@ -58,15 +58,12 @@ def add_favorite(request):
         user = Profile.objects.get(user__email=email)
         if body['action'] == 'add':
             user.favorites.add(aliment)
-            print(aliment.favorited)
             aliment.favorited += 1
             aliment.save()
-            print(aliment.favorited)
         else:
             user.favorites.remove(aliment)
             aliment.favorited -= 1
             aliment.save()
-            print(aliment.favorited)
 
     return redirect('website-acceuil')
 
