@@ -7,5 +7,7 @@ urlpatterns = [
     path('submit', views.submit, name='submit'),
     path('substitut/<codebar>', views.substitut, name='substitut'),
     path('product/<codebar>', views.product, name='product-page'),
-    path('legals', views.legals, name='legals')
+    path('legals', views.legals, name='legals'),
+    path('categories', views.categories, name="categories"),
+    path('by_favorites', views.by_favorites, name="by_favorites")
 ]

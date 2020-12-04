@@ -43,7 +43,8 @@ def substitut(request, codebar):
     try:
         product_searched = Product.objects.get(codebar=codebar)
     except Product.DoesNotExist:
-        print("Le produit rechercher n'existe pas dans la base de donnée")
+        raise Http404("Le produit rechercher n'existe pas dans la base de donnée")
+    
     aliment = {
         'name': product_searched.name,
         'grade': product_searched.grade,
@@ -82,3 +83,14 @@ def legals(request):
     '''This view will display the legals mentions template'''
 
     return render(request, 'sub_website/acceuil/legals.html')
+
+def categories(request):
+    pass
+
+def by_favorites(request):
+    prefered_items = Product.objects.filter(favorited__gte=1).order_by('-favorited')
+    context = {
+        "prefered": prefered_items,
+    }
+    
+    return render(request, 'sub_website/acceuil/favorited.html', context)

@@ -24,6 +24,7 @@ class Product(models.Model):
     last_cat = models.CharField(max_length=256)
     stores = models.CharField(max_length=256, default='[]')
     fallback_cat = models.CharField(max_length=256, default='None')
+    favorited = models.IntegerField(max_length=256, default=0)
 
     def __str__(self):
         return self.name
