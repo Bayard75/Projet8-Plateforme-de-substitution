@@ -18,7 +18,11 @@
     <div class="row space-rows">
     {% for product in results_db  %}
         <div class="col" id="{{product.codebar}}">
-        <a href="substitut/{{product.codebar}}">
+            {%if from_api%}
+        <a href="substitut_api/{{product.last_cat}}/{{product.name}}/{{product.grade}}/{{product.codebar}}">
+            {% else %}
+                <a href="substitut/{{product.codebar}}">
+            {% endif %}
             <div class="card cards-shadown cards-hover">
                 <div class="card-header" style="background-image:url({{product.image}}); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>
                 <div class="card-body">

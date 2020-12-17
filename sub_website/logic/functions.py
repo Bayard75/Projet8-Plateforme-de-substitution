@@ -8,6 +8,7 @@ import requests
 import json
 
 def get_from_api(value):
+    '''This function will take in a product name and search through the api'''
     url = f'https://fr.openfoodfacts.org/cgi/search.pl?search_terms={value}&json=True'
     response = requests.get(url)
     data = response.json()
@@ -45,16 +46,22 @@ def paginate(product_list, paginate_by, current_page):
     return list_paginated
 
 
-def get_substituts_list(product_to_sub):
+def get_substituts_list(product_to_sub, api=False, grade=None, codebar=None):
     '''This function will take in a product a return a list
     of all avaible substitut within its last categorye.
     If the last cat contains less then 6 products
     the function will look into the fallback category'''
+    if api:
+        last_cat = Category.objects.get(name=product_to_sub)
+        subs_last_cat = last_cat.products.all().filter(grade__lte=grade).order_by('grade').exclude(codebar=codebar)
+        substitut_list = subs_last_cat
+        return substitut_list
+    else:
+        last_cat = Category.objects.get(name=product_to_sub.last_cat)
+        subs_last_cat = last_cat.products.all().filter(grade__lte=product_to_sub.grade).order_by('grade').exclude(codebar=product_to_sub.codebar)
 
-    last_cat = Category.objects.get(name=product_to_sub.last_cat)
+        substitut_list = subs_last_cat
 
-    subs_last_cat = last_cat.products.all().filter(grade__lte=product_to_sub.grade).order_by('grade').exclude(codebar=product_to_sub.codebar)
-    substitut_list = subs_last_cat
 
     if len(subs_last_cat) < 6 and product_to_sub.fallback_cat != 'None':
         fallback_cat = Category.objects.get(name=product_to_sub.fallback_cat)

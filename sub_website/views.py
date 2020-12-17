@@ -24,13 +24,14 @@ def submit(request):
     # We first need to get all the products containg the value searched
     results_list = Product.objects.filter(name__icontains=value)
     page_number = request.GET.get('page')
-    
+    from_api = False
     if not results_list:
         results_list = f.get_from_api(value)
-    
+        from_api = True
     context = {
         'results_db': f.paginate(results_list, 6, page_number),
-        'paginate': True
+        'paginate': True,
+        'from_api': from_api,
     }
     return render(request, 'sub_website/acceuil/results.html', context)
 
@@ -61,6 +62,27 @@ def substitut(request, codebar):
     return render(request, 'sub_website/acceuil/substitut.html', context)
 
 
+def substitut_api(request, last_cat, name, grade, codebar):
+    '''This view will take in a product codebar and return a template
+    with all the substituts avaible for said product'''
+    print('AJHHHH',last_cat)
+    page_number = request.GET.get('page')
+    
+    aliment = {
+        'name': name,
+        'grade': grade,
+        'image': 'None'
+        }  # Dict used in our template for chosen_product
+
+    substituts = f.get_substituts_list(last_cat, api=True, grade=grade, codebar=codebar)
+
+    context = {
+        'chosen_aliment': aliment,
+        'substituts': f.paginate(substituts, 6, page_number),
+        'paginate': True
+    }
+    return render(request, 'sub_website/acceuil/substitut.html', context)
+
 def product(request, codebar):
     ''' This view will take in a codebar and
     return a template with all revelant information about
@@ -85,6 +107,8 @@ def legals(request):
 
 
 def categories(request):
+    '''This view will display all categories available in the DB
+    by using pagination'''
     page_number = request.GET.get('page')
     categories = Category.objects.all()
     context = {
@@ -95,6 +119,7 @@ def categories(request):
 
 
 def by_favorites(request):
+    '''This view will display the most favorited product by desceding order'''
     prefered_items = Product.objects.filter(favorited__gte=1).order_by('-favorited')
     context = {
         "prefered": prefered_items,
@@ -104,6 +129,7 @@ def by_favorites(request):
 
 
 def category(request, name):
+    ''' This view will display all products from a given category'''
     page_number = request.GET.get('page')
     chosen_cat = Category.objects.get(name=name)
     cat_products = chosen_cat.products.all()
