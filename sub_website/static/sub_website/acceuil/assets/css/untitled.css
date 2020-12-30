@@ -94,12 +94,6 @@ li {
 .row.space-rows > * {
   flex: 0 0 33.33333%;
 }
-.badge.badge-primary {
-  position: absolute;
-  top: -13px;
-  right: 33px;
-  z-index: 1;
-}
 
 .produit_card {
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);

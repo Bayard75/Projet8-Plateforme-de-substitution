@@ -5,6 +5,10 @@ from .logic import functions as f
 from .models import Category, Product
 
 import json 
+from bs4 import BeautifulSoup
+
+import requests
+
 
 # Create your views here.
 def home_page(request):
@@ -62,20 +66,29 @@ def substitut(request, codebar):
     return render(request, 'sub_website/acceuil/substitut.html', context)
 
 
-def substitut_api(request, last_cat, name, grade, codebar):
+def substitut_api(request, grade, codebar):
     '''This view will take in a product codebar and return a template
     with all the substituts avaible for said product'''
-    print('AJHHHH',last_cat)
     page_number = request.GET.get('page')
     
-    aliment = {
-        'name': name,
-        'grade': grade,
-        'image': 'None'
-        }  # Dict used in our template for chosen_product
-
+    r = requests.get(f'https://fr.openfoodfacts.org/produit/{codebar}')
+    soup = BeautifulSoup(r.text, 'html.parser')
+    image_url = soup.find(id='og_image')['src']
+    name = soup.select('span[itemprop=description]')[0].text
+    cats =  []
+    for i in  soup.select('a[href*=categorie]'):
+        try:
+            if 'well_known' in i['class']:
+                cats.append(i.text)
+        except KeyError:
+            pass
+    last_cat = cats[-1]
     substituts = f.get_substituts_list(last_cat, api=True, grade=grade, codebar=codebar)
 
+    aliment = {
+        'name': name,
+        'image': image_url,
+    }
     context = {
         'chosen_aliment': aliment,
         'substituts': f.paginate(substituts, 6, page_number),

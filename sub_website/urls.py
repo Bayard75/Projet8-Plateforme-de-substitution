@@ -6,7 +6,7 @@ urlpatterns = [
     path('', views.home_page, name='website-acceuil'),
     path('submit', views.submit, name='submit'),
     path('substitut/<codebar>', views.substitut, name='substitut'),
-    path('substitut_api/<last_cat>/<name>/<grade>/<codebar>', views.substitut_api, name='substitut_api'),
+    path('substitut_api/<grade>/<codebar>', views.substitut_api, name='substitut_api'),
 
     path('product/<codebar>', views.product, name='product-page'),
     path('legals', views.legals, name='legals'),
