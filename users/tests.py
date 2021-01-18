@@ -22,11 +22,14 @@ class RegisterPageTestCase(TestCase):
         email = 'testEmaisl@gmail.com'
         password1 = 'test2341'
         password2 = 'test2341'
-
+        last_name = 'MrTest'
+        first_name = 'testname'
         response = self.client.post(reverse('register'),
                                     {
                                         'username': username,
                                         'email': email,
+                                        'last_name': last_name,
+                                        'first_name': first_name,
                                         'password1': password1,
                                         'password2': password2
                                     })

@@ -1,8 +1,14 @@
+import os
+from django.core.wsgi import get_wsgi_application
+
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sub_project.settings")
+application = get_wsgi_application()
+
 import time
 import random
-
 from django.urls import reverse
 from django.contrib.staticfiles.testing import LiveServerTestCase
+from django.conf import settings
 from django.contrib.auth.models import User
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
@@ -16,7 +22,6 @@ chrome_options = webdriver.ChromeOptions()
 chrome_options.headless = True
 chrome_options.add_argument('--no-sandbox')
 chrome_options.add_argument('--disable-dev-shm-usage')
-
 
 
 def create_product(codebar, name, grade):
@@ -130,7 +135,7 @@ class IndexPageSeleniumTest(LiveServerTestCase):
 class SubstitutPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
-        self.selenium = webdriver.Chrome(ChromeDriverManager().install(),chrome_options=chrome_options)
+        self.selenium = webdriver.Chrome(ChromeDriverManager().install(), chrome_options=chrome_options)
         self.selenium.implicitly_wait(30)
         self.selenium.maximize_window()
         substituts = ['sub1', 'sub2', 'sbu3', 'sub4', 'sub5', 'sub6']
@@ -171,6 +176,8 @@ class SubstitutPageSeleniumTest(LiveServerTestCase):
         message = selenium.find_element_by_id('message_status')
         message_h2_tag = message.find_element_by_tag_name('h2')
         self.assertEqual(message_h2_tag.text, "Ce produit est déjà le meilleur de sa catégorie")
+
+
 class ProductPageSeleniumTest(LiveServerTestCase):
 
     def setUp(self):
@@ -213,6 +220,8 @@ class RegisterPageSeleniumTest(LiveServerTestCase):
         
         User.objects.create_user(username='usernameTest',
                                  email='testEmail@gmail.com',
+                                 first_name='testFirstname',
+                                 last_name='testLastName',
                                  password='test2341')
         user = Profile.objects.get(user__email='testEmail@gmail.com')
         test_product1 = create_product(1, 'test_product1,', 'a')
@@ -232,9 +241,13 @@ class RegisterPageSeleniumTest(LiveServerTestCase):
         password1 = selenium.find_element_by_name('password1')
         password2 = selenium.find_element_by_name('password2')
         submit_btn = selenium.find_element_by_name('submit')
-
+        last_name = selenium.find_element_by_name('last_name')
+        first_name = selenium.find_element_by_name('first_name')
+        
         username.send_keys('test_user')
         email.send_keys('test_email@gmail.com')
+        first_name.send_keys('testFirstname')
+        last_name.send_keys('testLastname')
         password1.send_keys('testpassword1')
         password2.send_keys('testpassword1')
 
@@ -259,10 +272,10 @@ class RegisterPageSeleniumTest(LiveServerTestCase):
         time.sleep(2)
         # The user is now on his account page
 
-        username_displayed = selenium.find_element_by_id('username').text
+        name_displayed = selenium.find_element_by_id('username').text
         email_displayed = selenium.find_element_by_id('user_email').text
 
-        self.assertEqual(username_displayed, 'usernameTest')
+        self.assertEqual(name_displayed, 'testFirstname')
         self.assertEqual(email_displayed, 'testEmail@gmail.com')
 
     def test_favorite_page(self):
