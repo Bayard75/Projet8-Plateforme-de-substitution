@@ -4,7 +4,7 @@
 Ce projet a pour but de créer une plateforme de substitution, sur laquelle un utilisateur pourra chercher un produit
 et le substituer avec un autre plus sain. Cette plateforme est la suivante : **Pur Beurre**.
 L'application a été déployée sur une instance AWS EC2.
-**http://35.180.133.160/**
+**http://188.166.156.145**
 
 Cette application a été developper avec **Django 3.0.4** et fait appel à **l'api d'OpenFoodFacts**
 
