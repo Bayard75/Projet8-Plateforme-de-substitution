@@ -4,7 +4,7 @@ from django.http import Http404
 from .logic import functions as f
 from .models import Category, Product
 
-import json 
+import json
 from bs4 import BeautifulSoup
 
 import requests
@@ -48,8 +48,8 @@ def substitut(request, codebar):
     try:
         product_searched = Product.objects.get(codebar=codebar)
     except Product.DoesNotExist:
-        raise Http404("Le produit rechercher n'existe pas dans la base de donnée")
-    
+        raise Http404("Le produit rechercher non existant")
+
     aliment = {
         'name': product_searched.name,
         'grade': product_searched.grade,
@@ -70,20 +70,21 @@ def substitut_api(request, grade, codebar):
     '''This view will take in a product codebar and return a template
     with all the substituts avaible for said product'''
     page_number = request.GET.get('page')
-    
+
     r = requests.get(f'https://fr.openfoodfacts.org/produit/{codebar}')
     soup = BeautifulSoup(r.text, 'html.parser')
     image_url = soup.find(id='og_image')['src']
     name = soup.select('span[itemprop=description]')[0].text
-    cats =  []
-    for i in  soup.select('a[href*=categorie]'):
+    cats = []
+    for i in soup.select('a[href*=categorie]'):
         try:
             if 'well_known' in i['class']:
                 cats.append(i.text)
         except KeyError:
             pass
     last_cat = cats[-1]
-    substituts = f.get_substituts_list(last_cat, api=True, grade=grade, codebar=codebar)
+    substituts = f.get_substituts_list(last_cat, api=True, grade=grade,
+                                       codebar=codebar)
 
     aliment = {
         'name': name,
@@ -96,6 +97,7 @@ def substitut_api(request, grade, codebar):
     }
     return render(request, 'sub_website/acceuil/substitut.html', context)
 
+
 def product(request, codebar):
     ''' This view will take in a codebar and
     return a template with all revelant information about
@@ -104,7 +106,7 @@ def product(request, codebar):
         product = Product.objects.get(codebar=codebar)
     except Product.DoesNotExist:
         raise Http404('Le produit recherchez n"existe pas')
-    
+
     context = {
         'product': product,
         'stores': json.loads(product.stores)
@@ -137,7 +139,7 @@ def by_favorites(request):
     context = {
         "prefered": prefered_items,
     }
-    
+
     return render(request, 'sub_website/acceuil/favorited.html', context)
 
 

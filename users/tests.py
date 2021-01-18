@@ -2,12 +2,9 @@ from django.test import TestCase
 from django.contrib.auth.models import User
 
 from django.urls import reverse
-
-from .forms import UserRegisterForm, LoginForm
 from .models import Profile
+
 from sub_website.models import Product, Category
-
-
 import json
 # Create your tests here.
 
@@ -19,7 +16,7 @@ class RegisterPageTestCase(TestCase):
     def test_register_page_return_200(self):
         response = self.client.get(reverse('register'))
         self.assertEqual(response.status_code, 200)
-    '''
+
     def test_register_creates_new_user(self):
         username = 'usernameTest'
         email = 'testEmaisl@gmail.com'
@@ -37,7 +34,7 @@ class RegisterPageTestCase(TestCase):
         user = User.objects.get(email='testEmaisl@gmail.com')
         self.assertIsNotNone(user)
         self.assertRedirects(response, reverse('login'))
-    '''
+
 
 class AccountPageTestCase(TestCase):
 
@@ -82,9 +79,9 @@ class AddFavoriteTestCase(TestCase):
                 'codebar': '1',
                 'action': 'add'}
 
-        response = self.client.post(reverse('add_fav'),
-                                    json.dumps(body),
-                                    content_type='application/json')
+        self.client.post(reverse('add_fav'),
+                         json.dumps(body),
+                         content_type='application/json')
         favorite = self.user_profile.favorites.get(codebar='1')
         self.assertIsNotNone(favorite)
 
@@ -97,11 +94,12 @@ class AddFavoriteTestCase(TestCase):
                 'codebar': self.test_product.codebar,
                 'action': 'delete'}
 
-        response = self.client.post(reverse('add_fav'),
-                                    json.dumps(body),
-                                    content_type='application/json')
+        self.client.post(reverse('add_fav'),
+                         json.dumps(body),
+                         content_type='application/json')
 
-        self.assertFalse(self.user.profile.favorites.filter(codebar=self.test_product.codebar).exists())
+        self.assertFalse(self.user.profile.favorites.filter(
+                    codebar=self.test_product.codebar).exists())
 
 
 class ShowFavoritePageTestCase(TestCase):
@@ -121,12 +119,13 @@ class ShowFavoritePageTestCase(TestCase):
         response = self.client.get(reverse('favorites'))
         self.assertEqual(response.status_code, 200)
 
+
 class CategoriesPageTestCase(TestCase):
 
     def test_categories_return_200(self):
         response = self.client.get(reverse('categories'))
         self.assertEqual(response.status_code, 200)
-    
+
 
 class CategoryPageTestCase(TestCase):
 
@@ -138,7 +137,7 @@ class CategoryPageTestCase(TestCase):
             )
         self.category_to_create = Category.objects.create(name='test_cat')
         self.aliment.categories.add(self.category_to_create)
-    
+
     def test_category_return_200(self):
         response = self.client.get(reverse('categories'))
         self.assertEqual(response.status_code, 200)

@@ -2,8 +2,6 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm
 from .models import Profile
-from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout
 
 
 class UserRegisterForm(UserCreationForm):
@@ -17,7 +15,7 @@ class UserRegisterForm(UserCreationForm):
                                 widget=forms.PasswordInput,
 
                                 help_text=("Même mot de passe que avant."))
-    
+
     def clean_email(self):
         email = self.cleaned_data.get('email')
         username = self.cleaned_data.get('username')
@@ -43,10 +41,11 @@ class LoginForm(forms.Form):
 
 class UserUpdateForm(forms.ModelForm):
     email = forms.EmailField()
-    
+
     class Meta:
         model = User
         fields = ['username', 'last_name', 'first_name', 'email']
+
 
 class ProfileUpdateForme(forms.ModelForm):
     class Meta:

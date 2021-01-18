@@ -61,19 +61,21 @@ class Command(BaseCommand):
 
                         except CategoryIntegrityError:
                             # If the Category as already been created
-                            print('La category suivante est déjà inserée : ', cat)
+                            print('La category suivante est déjà inserée : ',
+                                  cat)
                             category_to_add = Category.objects.get(name=cat)
                             aliment.categories.add(category_to_add)
 
-
                 except ProductIntegrityError:
-                    # If a product with the same name is present in the database we go to the next one
+                    # If a product with the same name is present in the
+                    # database we go to the next one
                     print('Un aliment de ce nom est déjà present : ',
                           product['product_name_fr'])
                     pass
 
                 except KeyError:
-                    # In case a product doesn't have all the releveant information we go the next one
+                    # In case a product doesn't have all the releveant
+                    # information we go the next one
                     pass
             print('page : ', page)
             page += 1

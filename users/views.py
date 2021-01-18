@@ -18,23 +18,24 @@ def register(request):
         form = UserRegisterForm(request.POST)
         if form.is_valid():
             form.save()
-            username = form.cleaned_data.get('username')
-            messages.success(request, f'Compte crée, vous pouvez maintenant vous connecter')
+            messages.success(request, 'Compte crée connexion possible')
             return redirect('login')
 
     else:
         form = UserRegisterForm()
     return render(request, 'users/inscription.html', {'form': form})
 
+
 @login_required
 def account(request):
     if request.method == 'POST':
         u_form = UserUpdateForm(request.POST, instance=request.user)
-        p_form = ProfileUpdateForme(request.POST, request.FILES, instance=request.user.profile)
+        p_form = ProfileUpdateForme(request.POST, request.FILES,
+                                    instance=request.user.profile)
         if u_form.is_valid() and p_form.is_valid():
             u_form.save()
             p_form.save()
-            messages.success(request, f'Compte mis à jour.')
+            messages.success(request, 'Compte mis à jour.')
             return redirect('account')
 
     else:
@@ -45,6 +46,7 @@ def account(request):
         'p_form': p_form
     }
     return render(request, 'users/compte.html', context=context)
+
 
 @csrf_exempt
 @login_required
@@ -66,6 +68,7 @@ def add_favorite(request):
             aliment.save()
 
     return redirect('website-acceuil')
+
 
 @login_required
 def show_favorite(request):

@@ -38,15 +38,15 @@ class Command(BaseCommand):
                                 'url': product['url'],
                                 'reperes': product['image_nutrition_url'],
                                 'image': product['image_front_url'],
-                                'last_cat':cat_list[-1]}
+                                'last_cat': cat_list[-1]}
                     )
 
                     if created:
                         print("L'aliment suivant à été crée : ",
-                                product['product_name_fr'])
+                              product['product_name_fr'])
                     else:
                         print("L'aliment suivant à été updaté : ",
-                                product['product_name_fr'])
+                              product['product_name_fr'])
 
                     if len(cat_list) > 1:
                         # If we have more than 1 cat we can add a fallback cat
@@ -60,16 +60,16 @@ class Command(BaseCommand):
 
                         except CategoryIntegrityError:
                             category_to_add = Category.objects.get(name=cat)
-                            aliment.categories.add(category_to_add)   
+                            aliment.categories.add(category_to_add)
 
                 except ProductIntegrityError:
                     pass
                 except KeyError:
-                    # In case a product doesn't have all the releveant information we go the next one
+                    # In case a product doesn't have all the releveant
+                    # information we go the next one
                     pass
             print('page : ', page)
             page += 1
- 
 
     def handle(self, *args, **options):
         self.update_databse()
